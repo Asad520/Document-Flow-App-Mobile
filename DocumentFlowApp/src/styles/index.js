@@ -3,7 +3,7 @@ import * as util from '../utilities/index';
 
 const styles = StyleSheet.create({
   welcomeImg: {
-    marginTop: util.WP(65),
+    marginTop: util.WP(18),
     alignSelf: 'center',
   },
   innerContainer: {
@@ -23,11 +23,51 @@ const styles = StyleSheet.create({
   findUs: {
     width: util.WP(100),
     height: util.WP(40),
+    marginTop: util.WP(2),
+  },
+  footerText: {
+    color: 'white',
+    marginTop: util.WP(5),
+    alignSelf: 'center',
+  },
+  findContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: util.WP(6),
   },
   footImg: {
+    marginHorizontal: util.WP(-9),
+  },
+  backBtn: {
+    height: util.WP(12),
+    width: util.WP(13.25),
+  },
+  adminImage: {
+    alignSelf: 'center',
+  },
+  adminText: {
     marginTop: util.WP(18),
-    marginHorizontal: util.WP(9),
+    marginHorizontal: util.WP(22),
+  },
+  loginInput: {
+    width: util.WP(90),
+    borderWidth: 2,
+    borderRadius: util.WP(10),
+    marginHorizontal: util.WP(5),
+    paddingHorizontal: util.WP(6),
+  },
+  iconContainer: {
+    left: util.WP(84),
+    top: util.WP(11),
+  },
+  loginBtn: {
+    backgroundColor: '#074D65',
+    width: util.WP(40),
+    height: util.WP(15),
+    paddingVertical: util.WP(4),
+    marginBottom: util.WP(3),
+    marginTop: util.WP(-3),
+    alignSelf: 'center',
   },
 });
 

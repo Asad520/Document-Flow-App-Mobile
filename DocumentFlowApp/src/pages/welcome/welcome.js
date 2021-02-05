@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import styles from '../../styles';
 import {
   Text,
-  StatusBar,
   Image,
   View,
   ImageBackground,
@@ -12,18 +11,16 @@ import {
 import * as util from '../../utilities/index';
 
 class Welcome extends React.Component {
+  static navigationOptions = ({navigation}) => ({
+    headerShown: false,
+  });
   constructor(props) {
     super(props);
-    this.state = {};
   }
-
-  componentDidMount() {}
 
   render() {
     return (
       <>
-        <StatusBar barStyle="light-content" backgroundColor="grey" />
-
         <ImageBackground
           source={require('../../assets/forest.png')}
           style={{height: util.HP(40)}}>
@@ -35,7 +32,9 @@ class Welcome extends React.Component {
           <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>
             Please Choose a Portal!
           </Text>
-          <TouchableOpacity style={styles.portalButton}>
+          <TouchableOpacity
+            style={styles.portalButton}
+            onPress={() => util.navigate('adminLogin')}>
             <Text style={styles.portalBtnTxt}>Login as Admin</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.portalButton}>
@@ -46,18 +45,20 @@ class Welcome extends React.Component {
           source={require('../../assets/foot.png')}
           style={styles.findUs}
           resizeMode="cover">
-          <Image
-            source={require('../../assets/gmail.png')}
-            style={styles.footImg}
-          />
-          <Image
-            source={require('../../assets/fb.png')}
-            style={styles.footImg}
-          />
-          <Image
-            source={require('../../assets/twitter.png')}
-            style={styles.footImg}
-          />
+          <View style={[styles.findContainer, {marginTop: util.WP(17)}]}>
+            <Image
+              source={require('../../assets/gmail.png')}
+              style={styles.footImg}
+            />
+            <Image
+              source={require('../../assets/fb.png')}
+              style={styles.footImg}
+            />
+            <Image
+              source={require('../../assets/twitter.png')}
+              style={styles.footImg}
+            />
+          </View>
         </ImageBackground>
       </>
     );
