@@ -7,13 +7,13 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Alert,
+  Image,
 } from 'react-native';
 import {connect} from 'react-redux';
 import * as util from '../../../utilities';
 import * as TASKS from '../../../store/actions';
 import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
-import Header from '../../../components/adminHeader';
 import SmallButton from '../../../components/smallButton';
 import {FlatList} from 'react-native-gesture-handler';
 import {sortBy} from 'lodash';
@@ -39,12 +39,20 @@ export class DeleteUser extends Component {
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{flex: 1}}>
-          <Header navigation={navigation} />
           <SmallButton
             text="Delete User"
             color="#23909D"
             imgAddress={require('../../../assets/delUser.png')}
           />
+          <TouchableOpacity
+            onPress={() => this.props.navigation.goBack()}
+            style={[styles.backBtn, {marginTop: util.WP(-20)}]}>
+            <Image
+              source={require('../../../assets/back.png')}
+              style={{height: util.WP(10), width: util.WP(10)}}
+            />
+          </TouchableOpacity>
+
           <Text style={styles.addUserTxt}>
             Which user do you want to delete?
           </Text>

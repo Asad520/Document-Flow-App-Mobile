@@ -62,6 +62,8 @@ export class AddUser extends Component {
               placeholder="Enter Last Name..."
               onChangeText={(lName) => this.setState({lName: lName})}
               value={this.state.lName}
+              maxLength={4}
+              multiline={false}
             />
             <Text style={styles.addUserLabel}>Email:</Text>
             <TextInput

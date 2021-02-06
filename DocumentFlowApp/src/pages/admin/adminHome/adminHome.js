@@ -114,7 +114,9 @@ class AdminHome extends Component {
                 imgAddress={require('../../../assets/delForm.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{alignSelf: 'center'}}>
+            <TouchableOpacity
+              style={{alignSelf: 'center'}}
+              onPress={() => util.navigate('respondRequests')}>
               <BigButton
                 text="Respond Requests"
                 color="#E89F15"

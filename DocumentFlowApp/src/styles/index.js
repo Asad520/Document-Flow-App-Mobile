@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   addUserTxt: {
     alignSelf: 'center',
-    marginTop: util.WP(4),
+    marginTop: util.WP(10),
     fontWeight: 'bold',
   },
   addUserContainer: {
@@ -150,19 +150,21 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     marginHorizontal: util.WP(3),
     marginTop: util.WP(3),
+    paddingBottom: util.WP(2.5),
   },
   deleteHeader: {
     flexDirection: 'row',
     backgroundColor: 'grey',
     height: util.WP(10),
     alignItems: 'center',
+    marginBottom: util.WP(2.5),
   },
   itemContainer: {
     flexDirection: 'row',
     backgroundColor: '#cccccc',
-    marginVertical: util.WP(2),
     borderWidth: util.WP(0.2),
     borderRadius: util.WP(1),
+    marginVertical: util.WP(1),
     marginHorizontal: util.WP(2),
     paddingVertical: util.WP(4),
     paddingHorizontal: util.WP(1),
@@ -179,6 +181,62 @@ const styles = StyleSheet.create({
     marginLeft: util.WP(30),
     color: 'white',
     fontSize: util.WP(5),
+  },
+  requestEmailHead: {
+    fontWeight: 'bold',
+    marginLeft: util.WP(5),
+    color: 'white',
+    fontSize: util.WP(4),
+  },
+  requestTypeHead: {
+    fontWeight: 'bold',
+    marginLeft: util.WP(18),
+    color: 'white',
+    fontSize: util.WP(4),
+  },
+  requestContainer: {
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    width: util.WP(90),
+    height: util.HP(50),
+    marginTop: util.HP(15),
+    borderRadius: util.WP(4),
+  },
+  requestDesc: {
+    paddingHorizontal: util.WP(3),
+    fontWeight: 'bold',
+    marginTop: util.WP(4),
+    fontSize: util.WP(4.5),
+  },
+  requestModalOptions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: util.WP(5),
+  },
+  requestReject: {
+    backgroundColor: 'red',
+    borderRadius: util.WP(100),
+    padding: util.WP(3),
+  },
+  requestAccept: {
+    backgroundColor: 'black',
+    borderRadius: util.WP(100),
+    padding: util.WP(3),
+    marginLeft: util.WP(8),
+  },
+  requestModalHead: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: util.WP(3),
+  },
+  requestHeadText: {
+    color: 'grey',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    fontSize: util.WP(4.5),
   },
 });
 

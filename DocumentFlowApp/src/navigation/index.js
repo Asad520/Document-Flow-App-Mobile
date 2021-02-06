@@ -5,6 +5,7 @@ import adminLogin from '../pages/admin/adminLogin/adminLogin';
 import adminHome from '../pages/admin/adminHome/adminHome';
 import addUser from '../pages/admin/addUser/addUser';
 import deleteUser from '../pages/admin/deleteUser/deleteUser';
+import respondRequests from '../pages/admin/respondRequests/respondRequests';
 
 const adminStack = createStackNavigator({
   welcome,
@@ -12,6 +13,7 @@ const adminStack = createStackNavigator({
   adminHome,
   addUser,
   deleteUser,
+  respondRequests,
 });
 const userStack = createStackNavigator({
   welcome,
