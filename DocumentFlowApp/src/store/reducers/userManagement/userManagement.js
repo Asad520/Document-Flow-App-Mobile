@@ -1,18 +1,18 @@
-import * as TYPES from "../../types";
+import * as TYPES from '../../types';
 const initialState = {
-  isLoading: false,
+  users: [],
 };
 const reducer = (state = initialState, actions) => {
   switch (actions.type) {
-    case TYPES.SHOW_LOADER:
+    case TYPES.ADD_USER:
       return {
         ...state,
-        isLoading: true,
+        users: [...state.users, actions.payload],
       };
-    case TYPES.HIDE_LOADER:
+    case TYPES.DELETE_USER:
       return {
         ...state,
-        isLoading: false,
+        users: actions.payload,
       };
     default:
       return state;

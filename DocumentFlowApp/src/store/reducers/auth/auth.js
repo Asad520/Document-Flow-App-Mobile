@@ -1,14 +1,7 @@
-import * as TYPES from "../../types";
-const initialState = {
-  user: null,
-};
+import * as TYPES from '../../types';
+const initialState = {};
 const reducer = (state = initialState, actions) => {
   switch (actions.type) {
-    case TYPES.ADD_USER:
-      return {
-        ...state,
-        user: actions.user,
-      };
     case TYPES.LOGOUT:
       return {
         ...state,

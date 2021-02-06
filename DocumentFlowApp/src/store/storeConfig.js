@@ -2,17 +2,17 @@ import {createStore, applyMiddleware, combineReducers, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from '@react-native-async-storage/async-storage';
-import ui from './reducers/ui/ui';
+import userManagement from './reducers/userManagement/userManagement';
 import auth from './reducers/auth/auth';
 const rootReducer = combineReducers({
-  ui: ui,
-  auth: auth,
+  userManagement,
+  auth,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['ui'],
+  blacklist: [],
 };
 
 const middleware = applyMiddleware(thunk);

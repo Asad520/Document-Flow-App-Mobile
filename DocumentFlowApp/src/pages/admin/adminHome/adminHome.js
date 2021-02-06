@@ -59,54 +59,21 @@ class AdminHome extends Component {
           </View>
         </ImageBackground>
         <Modal animationType="slide" visible={modalVisible} transparent>
-          <View
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              height: util.HP(100),
-            }}>
-            <View
-              style={{
-                alignSelf: 'center',
-                backgroundColor: 'white',
-                width: util.WP(80),
-                height: util.WP(40),
-                marginTop: util.HP(30),
-                borderRadius: util.WP(4),
-              }}>
-              <Text
-                style={{
-                  color: 'red',
-                  alignSelf: 'center',
-                  fontWeight: 'bold',
-                  marginTop: util.WP(5),
-                  fontSize: util.WP(4.5),
-                }}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalInnerContainer}>
+              <Text style={styles.modalHeading}>
                 Are you sure, you want to logout?
               </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginLeft: util.WP(24),
-                  marginTop: util.WP(8),
-                }}>
+              <View style={styles.modalOptions}>
                 <TouchableOpacity
                   onPress={() => this.setState({modalVisible: false})}
-                  style={{
-                    backgroundColor: 'red',
-                    borderRadius: util.WP(100),
-                    padding: util.WP(3),
-                  }}>
+                  style={styles.modalReject}>
                   <Icon name="cross" color="white" size={util.WP(8)} />
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={() => this.logout()}
-                  style={{
-                    backgroundColor: 'black',
-                    borderRadius: util.WP(100),
-                    padding: util.WP(3),
-                    marginLeft: util.WP(8),
-                  }}>
+                  style={styles.modalAccept}>
                   <Icon name="check" color="white" size={util.WP(8)} />
                 </TouchableOpacity>
               </View>
@@ -115,14 +82,18 @@ class AdminHome extends Component {
         </Modal>
         <View style={{flex: 1, marginTop: util.WP(3)}}>
           <ScrollView fadingEdgeLength={50}>
-            <TouchableOpacity style={{alignSelf: 'center'}}>
+            <TouchableOpacity
+              style={{alignSelf: 'center'}}
+              onPress={() => util.navigate('addUser')}>
               <BigButton
                 text="Add User"
                 color="#FC4C59"
                 imgAddress={require('../../../assets/addUser.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{alignSelf: 'center'}}>
+            <TouchableOpacity
+              style={{alignSelf: 'center'}}
+              onPress={() => util.navigate('deleteUser')}>
               <BigButton
                 text="Delete User"
                 color="#23909D"

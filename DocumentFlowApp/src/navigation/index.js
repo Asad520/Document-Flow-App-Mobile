@@ -3,11 +3,15 @@ import {createStackNavigator} from 'react-navigation-stack';
 import welcome from '../pages/welcome/welcome';
 import adminLogin from '../pages/admin/adminLogin/adminLogin';
 import adminHome from '../pages/admin/adminHome/adminHome';
+import addUser from '../pages/admin/addUser/addUser';
+import deleteUser from '../pages/admin/deleteUser/deleteUser';
 
 const adminStack = createStackNavigator({
   welcome,
   adminLogin,
   adminHome,
+  addUser,
+  deleteUser,
 });
 const userStack = createStackNavigator({
   welcome,
