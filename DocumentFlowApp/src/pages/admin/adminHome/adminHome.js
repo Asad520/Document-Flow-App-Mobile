@@ -11,6 +11,7 @@ import {
 import {connect} from 'react-redux';
 import * as util from '../../../utilities';
 import styles from '../../../styles';
+import Icon from 'react-native-vector-icons/Entypo';
 import Footer from '../../../components/adminFooter';
 import BigButton from '../../../components/bigButton';
 
@@ -85,7 +86,7 @@ class AdminHome extends Component {
               <View
                 style={{
                   flexDirection: 'row',
-                  marginLeft: util.WP(20),
+                  marginLeft: util.WP(24),
                   marginTop: util.WP(8),
                 }}>
                 <TouchableOpacity
@@ -93,9 +94,9 @@ class AdminHome extends Component {
                   style={{
                     backgroundColor: 'red',
                     borderRadius: util.WP(100),
-                    padding: util.WP(6),
+                    padding: util.WP(3),
                   }}>
-                  <Text style={{color: 'white', fontWeight: 'bold'}}>NO</Text>
+                  <Icon name="cross" color="white" size={util.WP(8)} />
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -103,10 +104,10 @@ class AdminHome extends Component {
                   style={{
                     backgroundColor: 'black',
                     borderRadius: util.WP(100),
-                    padding: util.WP(6),
+                    padding: util.WP(3),
                     marginLeft: util.WP(8),
                   }}>
-                  <Text style={{color: 'white', fontWeight: 'bold'}}>YES</Text>
+                  <Icon name="check" color="white" size={util.WP(8)} />
                 </TouchableOpacity>
               </View>
             </View>
