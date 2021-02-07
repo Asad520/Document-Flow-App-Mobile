@@ -100,14 +100,18 @@ class AdminHome extends Component {
                 imgAddress={require('../../../assets/delUser.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{alignSelf: 'center'}}>
+            <TouchableOpacity
+              style={{alignSelf: 'center'}}
+              onPress={() => util.navigate('addForm')}>
               <BigButton
                 text="Add Form"
                 color="#C54BE2"
                 imgAddress={require('../../../assets/addForm.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={{alignSelf: 'center'}}>
+            <TouchableOpacity
+              style={{alignSelf: 'center'}}
+              onPress={() => util.navigate('deleteForm')}>
               <BigButton
                 text="Delete Form"
                 color="#45AD5D"

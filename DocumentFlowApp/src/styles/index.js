@@ -144,7 +144,6 @@ const styles = StyleSheet.create({
     marginLeft: util.WP(8),
   },
   deleteContainer: {
-    flex: 1,
     borderWidth: util.WP(0.5),
     borderRadius: util.WP(2),
     borderColor: 'grey',
@@ -211,7 +210,6 @@ const styles = StyleSheet.create({
   requestModalOptions: {
     flexDirection: 'row',
     justifyContent: 'center',
-
     position: 'absolute',
     alignSelf: 'center',
     bottom: util.WP(5),
@@ -237,6 +235,48 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'italic',
     fontSize: util.WP(4.5),
+  },
+  reviewForm: {
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    padding: util.WP(5),
+    top: util.WP(30),
+    borderTopLeftRadius: util.WP(7),
+    borderTopRightRadius: util.WP(7),
+    borderColor: 'grey',
+    borderWidth: 2,
+  },
+  reviewFormText: {
+    fontWeight: 'bold',
+  },
+  emptyList: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'grey',
+    alignSelf: 'center',
+    padding: util.WP(4),
+    paddingHorizontal: util.WP(5),
+    borderRadius: util.WP(5),
+  },
+  emptyListText: {
+    color: 'white',
+  },
+  deleteTypeHead: {
+    fontWeight: 'bold',
+    marginLeft: util.WP(13),
+    color: 'white',
+    fontSize: util.WP(5),
+  },
+  deleteFormNameHead: {
+    fontWeight: 'bold',
+    marginLeft: util.WP(14),
+    color: 'white',
+    fontSize: util.WP(5),
+  },
+  respondOptions: {
+    fontSize: util.WP(4),
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 

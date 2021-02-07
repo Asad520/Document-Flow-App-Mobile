@@ -18,7 +18,7 @@ import SmallButton from '../../../components/smallButton';
 import {FlatList} from 'react-native-gesture-handler';
 import {sortBy} from 'lodash';
 
-export class DeleteUser extends Component {
+export class DeleteForm extends Component {
   static navigationOptions = ({navigation}) => ({
     headerShown: false,
   });
@@ -28,21 +28,21 @@ export class DeleteUser extends Component {
 
     this.state = {
       modalVisible: false,
-      allUsers: this.props.allUsers,
-      email: '',
+      allForms: this.props.allForms,
+      formId: '',
     };
   }
 
   render() {
-    const {navigation, allUsers} = this.props;
-    const {modalVisible, email} = this.state;
+    const {navigation, allForms} = this.props;
+    const {modalVisible, formId} = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{flex: 1}}>
           <SmallButton
-            text="Delete User"
-            color="#23909D"
-            imgAddress={require('../../../assets/delUser.png')}
+            text="Delete Form"
+            color="#45AD5D"
+            imgAddress={require('../../../assets/delForm.png')}
           />
           <TouchableOpacity
             onPress={() => this.props.navigation.goBack()}
@@ -54,17 +54,18 @@ export class DeleteUser extends Component {
           </TouchableOpacity>
 
           <Text style={styles.addUserTxt}>
-            Which user do you want to delete?
+            Which Form do you want to delete?
           </Text>
           <View style={styles.deleteContainer}>
             <View style={styles.deleteHeader}>
-              <Text style={styles.deleteEmailHead}>Email:</Text>
-              <Text style={styles.deleteNameHead}>Name:</Text>
+              <Text style={styles.deleteEmailHead}>ID:</Text>
+              <Text style={styles.deleteTypeHead}>Type:</Text>
+              <Text style={styles.deleteFormNameHead}>Name:</Text>
             </View>
             <FlatList
-              data={sortBy(allUsers, 'email')}
-              keyExtractor={(user) => user.email}
-              renderItem={(user) => this.renderUsers(user)}
+              data={sortBy(allForms, 'formId')}
+              keyExtractor={(form) => form.formId}
+              renderItem={(form) => this.renderForms(form)}
               fadingEdgeLength={50}
               ListEmptyComponent={() => (
                 <View style={styles.emptyList}>
@@ -80,7 +81,7 @@ export class DeleteUser extends Component {
             <View style={styles.modalContainer}>
               <View style={styles.modalInnerContainer}>
                 <Text style={styles.modalHeading}>
-                  {'Are you sure, you want to\n         delete this user?'}
+                  {'Are you sure, you want to\n         delete this form?'}
                 </Text>
                 <View style={{...styles.modalOptions, marginTop: util.WP(6)}}>
                   <TouchableOpacity
@@ -90,7 +91,7 @@ export class DeleteUser extends Component {
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    onPress={() => this.deleteUser(email)}
+                    onPress={() => this.deleteForm(formId)}
                     style={styles.modalAccept}>
                     <Icon name="check" color="white" size={util.WP(8)} />
                   </TouchableOpacity>
@@ -103,39 +104,42 @@ export class DeleteUser extends Component {
     );
   }
 
-  renderUsers({item}) {
+  renderForms({item}) {
     return (
       <TouchableOpacity style={styles.itemContainer}>
-        <Text>{item.email}</Text>
+        <Text>{item.formId}</Text>
         <View style={styles.deleteItemName}>
-          <Text>
-            {item.fName} {item.lName}
-          </Text>
+          <Text>{item.formType}</Text>
+        </View>
+        <View style={{}}>
+          <Text>{item.formName}</Text>
         </View>
         <Icon
-          name="remove-user"
-          color="#4d4d4d"
+          name="circle-with-cross"
+          color="red"
           size={util.WP(7)}
           style={styles.deleteItemIcon}
-          onPress={() => this.setState({modalVisible: true, email: item.email})}
+          onPress={() =>
+            this.setState({modalVisible: true, formId: item.formId})
+          }
         />
       </TouchableOpacity>
     );
   }
-  deleteUser(email) {
-    const {allUsers, deleteUser} = this.props;
-    const response = deleteUser(email, allUsers);
+  deleteForm(formId) {
+    const {allForms, deleteForm} = this.props;
+    const response = deleteForm(formId, allForms);
     if (response) {
       Alert.alert(
         `Success`,
-        `User ${email} has been deleted!`,
+        `Form with ID: ${formId} has been deleted!`,
         [{text: 'OK'}],
         {
           cancelable: false,
         },
       );
     } else {
-      Alert.alert(`Failed`, `Error deleting user: ${email}`, [{text: 'OK'}], {
+      Alert.alert(`Failed`, `Error deleting form: ${formId}`, [{text: 'OK'}], {
         cancelable: false,
       });
     }
@@ -147,16 +151,17 @@ export class DeleteUser extends Component {
 }
 
 mapStateToProps = (state) => {
+  console.log('Forms: ', state.formManagement.forms);
   return {
-    allUsers: state.userManagement.users,
+    allForms: state.formManagement.forms,
   };
 };
 
 mapDispatchToProps = (dispatch) => {
   return {
-    deleteUser: (email, allUsers) =>
-      dispatch(TASKS.deleteUser(email, allUsers)),
+    deleteForm: (formId, allForms) =>
+      dispatch(TASKS.deleteForm(formId, allForms)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteUser);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteForm);

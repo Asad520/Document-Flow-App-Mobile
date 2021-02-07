@@ -194,13 +194,15 @@ export class RespondRequests extends Component {
                       this.rejectRequest();
                     }}
                     style={styles.requestReject}>
-                    <Icon name="cross" color="white" size={util.WP(8)} />
+                    <Text style={styles.respondOptions}>Reject</Text>
+                    {/* <Icon name="cross" color="white" size={util.WP(8)} /> */}
                   </TouchableOpacity>
 
                   <TouchableOpacity
                     onPress={() => this.acceptRequest()}
                     style={styles.requestAccept}>
-                    <Icon name="check" color="white" size={util.WP(8)} />
+                    <Text style={styles.respondOptions}>Accept</Text>
+                    {/* <Icon name="check" color="white" size={util.WP(8)} /> */}
                   </TouchableOpacity>
                 </View>
               </View>

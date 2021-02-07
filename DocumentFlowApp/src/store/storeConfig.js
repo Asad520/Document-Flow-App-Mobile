@@ -3,9 +3,11 @@ import thunk from 'redux-thunk';
 import {persistStore, persistReducer} from 'redux-persist';
 import storage from '@react-native-async-storage/async-storage';
 import userManagement from './reducers/userManagement/userManagement';
+import formManagement from './reducers/formManagement/formManagement';
 import auth from './reducers/auth/auth';
 const rootReducer = combineReducers({
   userManagement,
+  formManagement,
   auth,
 });
 
