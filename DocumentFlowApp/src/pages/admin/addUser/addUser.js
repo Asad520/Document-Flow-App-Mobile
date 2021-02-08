@@ -7,6 +7,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Alert,
+  TextInput,
 } from 'react-native';
 import {connect} from 'react-redux';
 import * as util from '../../../utilities';
@@ -15,7 +16,8 @@ import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import Header from '../../../components/adminHeader';
 import SmallButton from '../../../components/smallButton';
-import {TextInput} from 'react-native-gesture-handler';
+
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 export class AddUser extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -45,58 +47,61 @@ export class AddUser extends Component {
             color="#FC4C59"
             imgAddress={require('../../../assets/addUser.png')}
           />
-          <Text style={styles.addUserTxt}>
-            {'Please fill out following details to add new user!'}
-          </Text>
-          <View style={styles.addUserContainer}>
-            <Text style={styles.addUserLabel}>First Name:</Text>
-            <TextInput
-              style={styles.addUserInput}
-              placeholder="Enter First Name..."
-              onChangeText={(fName) => this.setState({fName: fName})}
-              value={this.state.fName}
-            />
-            <Text style={styles.addUserLabel}>Last Name:</Text>
-            <TextInput
-              style={styles.addUserInput}
-              placeholder="Enter Last Name..."
-              onChangeText={(lName) => this.setState({lName: lName})}
-              value={this.state.lName}
-              maxLength={4}
-              multiline={false}
-            />
-            <Text style={styles.addUserLabel}>Email:</Text>
-            <TextInput
-              style={styles.addUserInput}
-              placeholder="Enter Email..."
-              onChangeText={(email) =>
-                this.setState({email: email.toLowerCase()})
-              }
-            />
-            <Text style={styles.addUserLabel}>User Password:</Text>
-            <TextInput
-              style={styles.addUserInput}
-              placeholder="Enter Password..."
-              onChangeText={(password) => this.setState({password: password})}
-              value={this.state.password}
-              secureTextEntry
-            />
-            <Text style={styles.addUserLabel}>Confirm Password:</Text>
-            <TextInput
-              style={styles.addUserInput}
-              placeholder="Confirm Password..."
-              onChangeText={(confirmPassword) =>
-                this.setState({confirmPassword: confirmPassword})
-              }
-              value={this.state.confirmPassword}
-              secureTextEntry
-            />
-            <TouchableOpacity
-              style={styles.submitBtn}
-              onPress={() => this.setState({modalVisible: true})}>
-              <Text style={styles.submitTxt}>Add User</Text>
-            </TouchableOpacity>
-          </View>
+          <KeyboardAwareScrollView>
+            <Text style={styles.addUserTxt}>
+              {'Please fill out following details to add new user!'}
+            </Text>
+
+            <View style={styles.addUserContainer}>
+              <Text style={styles.addUserLabel}>First Name:</Text>
+              <TextInput
+                style={styles.addUserInput}
+                placeholder="Enter First Name..."
+                onChangeText={(fName) => this.setState({fName: fName})}
+                value={this.state.fName}
+              />
+              <Text style={styles.addUserLabel}>Last Name:</Text>
+              <TextInput
+                style={styles.addUserInput}
+                placeholder="Enter Last Name..."
+                onChangeText={(lName) => this.setState({lName: lName})}
+                value={this.state.lName}
+                maxLength={4}
+                multiline={false}
+              />
+              <Text style={styles.addUserLabel}>Email:</Text>
+              <TextInput
+                style={styles.addUserInput}
+                placeholder="Enter Email..."
+                onChangeText={(email) =>
+                  this.setState({email: email.toLowerCase()})
+                }
+              />
+              <Text style={styles.addUserLabel}>User Password:</Text>
+              <TextInput
+                style={styles.addUserInput}
+                placeholder="Enter Password..."
+                onChangeText={(password) => this.setState({password: password})}
+                value={this.state.password}
+                secureTextEntry
+              />
+              <Text style={styles.addUserLabel}>Confirm Password:</Text>
+              <TextInput
+                style={styles.addUserInput}
+                placeholder="Confirm Password..."
+                onChangeText={(confirmPassword) =>
+                  this.setState({confirmPassword: confirmPassword})
+                }
+                value={this.state.confirmPassword}
+                secureTextEntry
+              />
+              <TouchableOpacity
+                style={styles.submitBtn}
+                onPress={() => this.setState({modalVisible: true})}>
+                <Text style={styles.submitTxt}>Add User</Text>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAwareScrollView>
           <Modal animationType="slide" visible={modalVisible} transparent>
             <View style={styles.modalContainer}>
               <View style={styles.modalInnerContainer}>

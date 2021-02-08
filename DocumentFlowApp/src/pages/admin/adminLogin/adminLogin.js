@@ -9,14 +9,13 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView,
   TextInput,
   Alert,
 } from 'react-native';
 
 import * as util from '../../../utilities';
 import Footer from '../../../components/adminFooter';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
 class AdminLogin extends React.Component {
   static navigationOptions = ({navigation}) => ({
@@ -35,11 +34,11 @@ class AdminLogin extends React.Component {
     const {navigation} = this.props;
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View>
-          <KeyboardAvoidingView behavior="padding">
+        <KeyboardAwareScrollView>
+          <View>
             <ImageBackground
               source={require('../../../assets/adminBg.png')}
-              style={{height: util.HP(40)}}>
+              style={{height: util.HP(37.25)}}>
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
                 style={styles.backBtn}>
@@ -98,8 +97,8 @@ class AdminLogin extends React.Component {
               </Text>
             </TouchableOpacity>
             <Footer />
-          </KeyboardAvoidingView>
-        </View>
+          </View>
+        </KeyboardAwareScrollView>
       </TouchableWithoutFeedback>
     );
   }
