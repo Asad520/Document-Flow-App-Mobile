@@ -26,7 +26,7 @@ export class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: true,
+      modalVisible: false,
       formId: '',
       formType: '',
       formName: '',
