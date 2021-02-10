@@ -140,6 +140,7 @@ export class AddForm extends Component {
     console.log('test1');
     const {formType, formName, formId} = this.state;
     const {addForm, allForms} = this.props;
+
     const newForm = {formType, formName, formId};
 
     const response = addForm(newForm, allForms);
