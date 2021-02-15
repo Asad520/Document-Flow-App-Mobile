@@ -1,14 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Alert,
-  Image,
-} from 'react-native';
+import {View, Text, TouchableOpacity, Modal, Image} from 'react-native';
 import {connect} from 'react-redux';
 import * as util from '../../../utilities';
 import * as TASKS from '../../../store/actions';

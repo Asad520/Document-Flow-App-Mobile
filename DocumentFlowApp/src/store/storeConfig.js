@@ -5,10 +5,12 @@ import storage from '@react-native-async-storage/async-storage';
 import userManagement from './reducers/userManagement/userManagement';
 import formManagement from './reducers/formManagement/formManagement';
 import auth from './reducers/auth/auth';
+import faqs from './reducers/faqs/faqs';
 const rootReducer = combineReducers({
   userManagement,
   formManagement,
   auth,
+  faqs,
 });
 
 const persistConfig = {

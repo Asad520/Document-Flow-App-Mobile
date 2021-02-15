@@ -278,6 +278,40 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  faqText: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    marginVertical: util.WP(4),
+  },
+  faqs: {
+    backgroundColor: '#A6555A',
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: util.WP(90),
+    height: util.WP(18),
+    marginVertical: util.WP(2),
+    borderRadius: util.WP(4),
+  },
+  queText: {
+    fontWeight: 'bold',
+    fontSize: util.WP(4.5),
+    color: 'white',
+  },
+  currentQue: {
+    color: 'grey',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    fontSize: util.WP(4.5),
+    marginLeft: util.WP(3),
+    marginTop: util.WP(-5),
+  },
+  currentAns: {
+    paddingHorizontal: util.WP(3),
+    fontWeight: 'bold',
+    marginTop: util.WP(3),
+    fontSize: util.WP(4.5),
+  },
 });
 
 export default styles;
