@@ -34,7 +34,7 @@ export class DeleteUser extends Component {
   }
 
   render() {
-    const {navigation, allUsers} = this.props;
+    const {allUsers} = this.props;
     const {modalVisible, email} = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

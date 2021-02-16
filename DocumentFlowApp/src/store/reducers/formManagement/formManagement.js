@@ -1,6 +1,10 @@
 import * as TYPES from '../../types';
 const initialState = {
-  forms: [],
+  forms: [
+    {formType: 'Leave', formName: 'Long Leave', formId: 'lv-0'},
+    {formType: 'Scholarship', formName: 'Merit Scholarship', formId: 'scs-0'},
+    {formType: 'add/drop', formName: 'Add/Drop Subject', formId: 'subj-0'},
+  ],
 };
 const reducer = (state = initialState, actions) => {
   switch (actions.type) {

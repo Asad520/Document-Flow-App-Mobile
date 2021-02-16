@@ -6,11 +6,13 @@ import userManagement from './reducers/userManagement/userManagement';
 import formManagement from './reducers/formManagement/formManagement';
 import auth from './reducers/auth/auth';
 import faqs from './reducers/faqs/faqs';
+import requests from './reducers/requests/requests';
 const rootReducer = combineReducers({
   userManagement,
   formManagement,
   auth,
   faqs,
+  requests,
 });
 
 const persistConfig = {
