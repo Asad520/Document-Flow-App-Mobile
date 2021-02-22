@@ -14,10 +14,10 @@ import {
 } from 'react-native';
 
 import * as util from '../../../utilities';
-import Footer from '../../../components/adminFooter';
+import Footer from '../../../components/userFooter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 
-class AdminLogin extends React.Component {
+class UserLogin extends React.Component {
   static navigationOptions = ({navigation}) => ({
     headerShown: false,
   });
@@ -37,7 +37,7 @@ class AdminLogin extends React.Component {
         <KeyboardAwareScrollView>
           <View>
             <ImageBackground
-              source={require('../../../assets/adminBg.png')}
+              source={require('../../../assets/userBg.png')}
               style={{height: util.HP(37.25)}}>
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
@@ -45,11 +45,11 @@ class AdminLogin extends React.Component {
                 <Image source={require('../../../assets/back.png')} />
               </TouchableOpacity>
               <Image
-                source={require('../../../assets/adminIcon.png')}
+                source={require('../../../assets/userIcon.png')}
                 style={styles.adminImage}
               />
               <Image
-                source={require('../../../assets/adminText.png')}
+                source={require('../../../assets/userText.png')}
                 style={styles.adminText}
               />
             </ImageBackground>
@@ -88,7 +88,7 @@ class AdminLogin extends React.Component {
             </View>
 
             <TouchableOpacity
-              style={styles.loginBtn}
+              style={[styles.loginBtn, {backgroundColor: '#7E4256'}]}
               onPress={() => {
                 this.login();
               }}>
@@ -121,7 +121,7 @@ class AdminLogin extends React.Component {
     //API call to login admin
 
     //if correct
-    util.navigate('adminHome');
+    util.navigate('userHome');
   }
 }
 mapStateToProps = (state) => {
@@ -131,4 +131,4 @@ mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(UserLogin);

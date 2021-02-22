@@ -1,2 +1,3 @@
-export * from './userManagement/userManagament';
+export * from './userManagement/userManagement';
+export * from './formManagement/formManagement';
 export * from './auth/auth';

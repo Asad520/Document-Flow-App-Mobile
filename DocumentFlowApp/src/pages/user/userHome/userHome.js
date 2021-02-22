@@ -12,10 +12,10 @@ import {connect} from 'react-redux';
 import * as util from '../../../utilities';
 import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
-import Footer from '../../../components/adminFooter';
+import Footer from '../../../components/userFooter';
 import BigButton from '../../../components/bigButton';
 
-class AdminHome extends Component {
+class UserHome extends Component {
   static navigationOptions = ({navigation}) => ({
     headerShown: false,
   });
@@ -32,7 +32,7 @@ class AdminHome extends Component {
     return (
       <View style={{flex: 1}}>
         <ImageBackground
-          source={require('../../../assets/adminBg.png')}
+          source={require('../../../assets/userBg.png')}
           style={{
             height: util.HP(20),
             flexDirection: 'row',
@@ -54,7 +54,7 @@ class AdminHome extends Component {
               Welcome!
             </Text>
             <Text style={{alignSelf: 'center', color: 'white'}}>
-              You're logged in as Admin
+              You're logged in as Student
             </Text>
           </View>
         </ImageBackground>
@@ -86,45 +86,45 @@ class AdminHome extends Component {
               style={{alignSelf: 'center'}}
               onPress={() => util.navigate('addUser')}>
               <BigButton
-                text="Add User"
-                color="#FC4C59"
-                imgAddress={require('../../../assets/addUser.png')}
+                text="Submit Request"
+                color="#A6555A"
+                imgAddress={require('../../../assets/submitRequestIcon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
               onPress={() => util.navigate('deleteUser')}>
               <BigButton
-                text="Delete User"
-                color="#23909D"
-                imgAddress={require('../../../assets/delUser.png')}
+                text="Request New Form"
+                color="#A6555A"
+                imgAddress={require('../../../assets/addForm.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
               onPress={() => util.navigate('addForm')}>
               <BigButton
-                text="Add Form"
-                color="#C54BE2"
-                imgAddress={require('../../../assets/addForm.png')}
+                text="Customize Form"
+                color="#A6555A"
+                imgAddress={require('../../../assets/customizeFormIcon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
               onPress={() => util.navigate('deleteForm')}>
               <BigButton
-                text="Delete Form"
-                color="#45AD5D"
-                imgAddress={require('../../../assets/delForm.png')}
+                text="Check Status"
+                color="#A6555A"
+                imgAddress={require('../../../assets/checkStatusIcon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
-              onPress={() => util.navigate('respondRequests')}>
+              onPress={() => util.navigate('faqs')}>
               <BigButton
-                text="Respond Requests"
-                color="#E89F15"
-                imgAddress={require('../../../assets/respondReq.png')}
+                text="FAQ Chatbot"
+                color="#A6555A"
+                imgAddress={require('../../../assets/chatbotIcon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -134,7 +134,7 @@ class AdminHome extends Component {
               }}>
               <BigButton
                 text="Logout"
-                color="#538FE0"
+                color="#A6555A"
                 imgAddress={require('../../../assets/logout.png')}
               />
             </TouchableOpacity>
@@ -155,4 +155,4 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminHome);
+export default connect(mapStateToProps, mapDispatchToProps)(UserHome);

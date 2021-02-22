@@ -37,7 +37,9 @@ class Welcome extends React.Component {
             onPress={() => util.navigate('adminLogin')}>
             <Text style={styles.portalBtnTxt}>Login as Admin</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.portalButton}>
+          <TouchableOpacity
+            style={styles.portalButton}
+            onPress={() => util.navigate('userLogin')}>
             <Text style={styles.portalBtnTxt}>Login as User</Text>
           </TouchableOpacity>
         </View>
