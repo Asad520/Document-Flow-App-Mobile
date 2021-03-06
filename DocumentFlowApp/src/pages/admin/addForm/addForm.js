@@ -67,9 +67,7 @@ export class AddForm extends Component {
               <TextInput
                 style={styles.addUserInput}
                 placeholder="Assign a unique form ID..."
-                onChangeText={(formId) =>
-                  this.setState({formId: formId.toLowerCase()})
-                }
+                onChangeText={(formId) => this.setState({formId})}
                 value={formId}
               />
 
@@ -137,11 +135,9 @@ export class AddForm extends Component {
     }
   }
   addForm() {
-    console.log('test1');
     const {formType, formName, formId} = this.state;
     const {addForm, allForms} = this.props;
-
-    const newForm = {formType, formName, formId};
+    const newForm = {formType, formName, formId: formId.toLowerCase()};
 
     const response = addForm(newForm, allForms);
     if (response === 'old') {

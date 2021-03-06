@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: util.WP(90),
     height: util.HP(50),
-    marginTop: util.HP(15),
+    marginTop: util.HP(17),
     borderRadius: util.WP(4),
   },
   requestDesc: {
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     marginVertical: util.WP(4),
   },
   faqs: {
-    backgroundColor: '#A6555A',
+    backgroundColor: util.USER_BASE_COLOR,
     alignItems: 'center',
     alignSelf: 'center',
     justifyContent: 'center',
@@ -311,6 +311,40 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: util.WP(3),
     fontSize: util.WP(4.5),
+  },
+  requestInput: {
+    marginTop: util.WP(4),
+    marginHorizontal: util.WP(4),
+    borderWidth: util.WP(0.5),
+    borderRadius: util.WP(3),
+    height: util.WP(63),
+  },
+  requestSubmitBtn: {
+    backgroundColor: util.USER_BASE_COLOR,
+    borderRadius: util.WP(100),
+    padding: util.WP(4),
+  },
+  requestNewForm: {
+    marginTop: util.WP(4),
+    marginHorizontal: util.WP(1),
+    borderWidth: util.WP(0.5),
+    borderRadius: util.WP(3),
+    height: util.WP(70),
+    paddingHorizontal: util.WP(3),
+  },
+  newFormHeading: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: util.WP(3),
+    fontSize: util.WP(6),
+    fontStyle: 'italic',
+  },
+  requestStatus: {
+    fontSize: util.WP(4),
+    color: 'grey',
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textDecorationLine: 'underline',
   },
 });
 

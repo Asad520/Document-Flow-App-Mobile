@@ -32,7 +32,7 @@ class Header extends Component {
             top: util.WP(-2.5),
           }}>
           <Image
-            source={require('../assets/adminIcon.png')}
+            source={require('../assets/userIcon.png')}
             style={{height: util.WP(25)}}
             resizeMode="contain"
           />

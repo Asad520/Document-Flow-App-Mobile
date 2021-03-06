@@ -88,7 +88,7 @@ class UserLogin extends React.Component {
             </View>
 
             <TouchableOpacity
-              style={[styles.loginBtn, {backgroundColor: '#7E4256'}]}
+              style={[styles.loginBtn, {backgroundColor: util.USER_BASE_COLOR}]}
               onPress={() => {
                 this.login();
               }}>

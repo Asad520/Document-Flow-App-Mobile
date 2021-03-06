@@ -16,15 +16,24 @@ export class RespondRequests extends Component {
 
   constructor(props) {
     super(props);
-    //max length of rquest 473 chars
-
     this.state = {
       modalVisible: false,
-
       currentReq: false,
     };
   }
 
+  respondRequests(newStatus) {
+    const {allRequests, saveRequests} = this.props;
+    const {currentReq} = this.state;
+    const newRequests = allRequests.map((request) => {
+      if (request.id === currentReq.id) {
+        return {...currentReq, status: newStatus};
+      }
+      return request;
+    });
+    saveRequests(newRequests);
+    this.setState({currentReq: false});
+  }
   render() {
     const {allRequests} = this.props;
     const {currentReq} = this.state;
@@ -59,7 +68,7 @@ export class RespondRequests extends Component {
             fadingEdgeLength={50}
           />
         </View>
-        {currentReq ? (
+        {currentReq && (
           <Modal animationType="slide" transparent>
             <View style={styles.modalContainer}>
               <View style={styles.requestContainer}>
@@ -81,53 +90,44 @@ export class RespondRequests extends Component {
                 <View style={styles.requestModalOptions}>
                   <TouchableOpacity
                     onPress={() => {
-                      this.rejectRequest();
+                      this.respondRequests('rejected');
                     }}
                     style={styles.requestReject}>
                     <Text style={styles.respondOptions}>Reject</Text>
-                    {/* <Icon name="cross" color="white" size={util.WP(8)} /> */}
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    onPress={() => this.acceptRequest()}
+                    onPress={() => this.respondRequests('accepted')}
                     style={styles.requestAccept}>
                     <Text style={styles.respondOptions}>Accept</Text>
-                    {/* <Icon name="check" color="white" size={util.WP(8)} /> */}
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
           </Modal>
-        ) : null}
+        )}
       </View>
     );
   }
 
   renderRequests({item}) {
     return (
-      <TouchableOpacity style={styles.itemContainer}>
-        <Text>{item.email}</Text>
-        <View style={styles.deleteItemName}>
-          <Text>{item.type}</Text>
-        </View>
-        <Icon
-          name="layers"
-          color="#4d4d4d"
-          size={util.WP(7)}
-          style={styles.deleteItemIcon}
-          onPress={() => this.setState({currentReq: item})}
-        />
-      </TouchableOpacity>
+      item.status === 'pending' && (
+        <TouchableOpacity style={styles.itemContainer}>
+          <Text>{item.email}</Text>
+          <View style={styles.deleteItemName}>
+            <Text>{item.type}</Text>
+          </View>
+          <Icon
+            name="layers"
+            color="#4d4d4d"
+            size={util.WP(7)}
+            style={styles.deleteItemIcon}
+            onPress={() => this.setState({currentReq: item})}
+          />
+        </TouchableOpacity>
+      )
     );
-  }
-
-  acceptRequest() {
-    console.log('Request Accepted');
-    this.setState({currentReq: false});
-  }
-  rejectRequest() {
-    console.log('Request Rejected');
-    this.setState({currentReq: false});
   }
 }
 
@@ -139,8 +139,7 @@ mapStateToProps = (state) => {
 
 mapDispatchToProps = (dispatch) => {
   return {
-    deleteUser: (email, allUsers) =>
-      dispatch(TASKS.deleteUser(email, allUsers)),
+    saveRequests: (newRequests) => dispatch(TASKS.saveRequests(newRequests)),
   };
 };
 

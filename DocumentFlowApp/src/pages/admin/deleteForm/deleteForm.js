@@ -34,7 +34,7 @@ export class DeleteForm extends Component {
   }
 
   render() {
-    const {navigation, allForms} = this.props;
+    const {allForms} = this.props;
     const {modalVisible, formId} = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -111,7 +111,7 @@ export class DeleteForm extends Component {
         <View style={styles.deleteItemName}>
           <Text>{item.formType}</Text>
         </View>
-        <View style={{}}>
+        <View>
           <Text>{item.formName}</Text>
         </View>
         <Icon
@@ -151,7 +151,6 @@ export class DeleteForm extends Component {
 }
 
 mapStateToProps = (state) => {
-  console.log('Forms: ', state.formManagement.forms);
   return {
     allForms: state.formManagement.forms,
   };

@@ -11,7 +11,10 @@ import deleteForm from '../pages/admin/deleteForm/deleteForm';
 import userLogin from '../pages/user/userLogin/userLogin';
 import userHome from '../pages/user/userHome/userHome';
 import faqs from '../pages/user/faqs/faqs';
-
+import requests from '../pages/user/submitRequest/requests';
+import newForm from '../pages/user/newForm/newForm';
+import customizeForm from '../pages/user/customizeForm/customizeForm';
+import checkStatus from '../pages/user/checkStatus/checkStatus';
 const adminStack = createStackNavigator({
   welcome,
   adminLogin,
@@ -26,6 +29,10 @@ const userStack = createStackNavigator({
   welcome,
   userLogin,
   userHome,
+  requests,
+  newForm,
+  customizeForm,
+  checkStatus,
   faqs,
 });
 
