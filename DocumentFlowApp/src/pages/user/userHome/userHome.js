@@ -52,7 +52,7 @@ class UserHome extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={{alignSelf: 'center', color: 'white'}}>
+            <Text style={styles.headerText}>
               You're logged in as Student
             </Text>
           </View>

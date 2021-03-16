@@ -16,7 +16,7 @@ class Header extends Component {
       <ImageBackground
         source={require('../assets/userBg.png')}
         style={{
-          height: util.HP(20),
+          height: util.HP(18),
         }}>
         <TouchableOpacity onPress={() => util.back()} style={styles.backBtn}>
           <Image
@@ -29,7 +29,7 @@ class Header extends Component {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            top: util.WP(-2.5),
+            top: util.WP(-8.5),
           }}>
           <Image
             source={require('../assets/userIcon.png')}
@@ -45,7 +45,7 @@ class Header extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={{alignSelf: 'center', color: 'white'}}>
+            <Text style={styles.headerText}>
               You're logged in as Student
             </Text>
           </View>

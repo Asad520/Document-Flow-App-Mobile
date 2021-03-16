@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   portalBtnTxt: {
     alignSelf: 'center',
     color: 'white',
-    fontSize: 15,
+    fontSize: util.WP(3.75),
   },
   findUs: {
     width: util.WP(100),
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: util.WP(5),
     alignSelf: 'center',
+    fontSize:util.WP(3)
   },
   findContainer: {
     flexDirection: 'row',
@@ -46,19 +47,26 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   adminText: {
-    marginTop: util.WP(18),
-    marginHorizontal: util.WP(22),
+    marginTop: util.WP(4),
+    alignSelf:'center'
   },
   loginInput: {
     width: util.WP(90),
     borderWidth: 2,
     borderRadius: util.WP(10),
-    marginHorizontal: util.WP(5),
-    paddingHorizontal: util.WP(6),
+    marginLeft: util.WP(5),
+    marginVertical:util.WP(2),
+    paddingLeft: util.WP(3),
+    paddingRight:util.WP(10),
+    paddingVertical: util.WP(2),
+    flex: 1,
   },
   iconContainer: {
-    left: util.WP(84),
-    top: util.WP(11),
+    top: util.WP(2),
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginBtn: {
     backgroundColor: '#074D65',
@@ -68,11 +76,19 @@ const styles = StyleSheet.create({
     marginBottom: util.WP(3),
     marginTop: util.WP(-3),
     alignSelf: 'center',
+    justifyContent:'center'
   },
   addUserTxt: {
     alignSelf: 'center',
+    marginTop: util.WP(4),
+    fontWeight: 'bold',
+    fontSize:util.WP(3)
+  },
+  delTxt: {
+    alignSelf: 'center',
     marginTop: util.WP(10),
     fontWeight: 'bold',
+    fontSize:util.WP(3)
   },
   addUserContainer: {
     paddingVertical: util.WP(1),
@@ -83,10 +99,11 @@ const styles = StyleSheet.create({
     marginTop: util.WP(3),
   },
   addUserLabel: {
-    marginLeft: util.WP(6),
+    marginLeft: util.WP(5),
     marginBottom: util.WP(-2),
     marginTop: util.WP(3),
     fontWeight: 'bold',
+    fontSize:util.WP(2)
   },
   addUserInput: {
     borderBottomWidth: util.WP(0.5),
@@ -107,6 +124,7 @@ const styles = StyleSheet.create({
   },
   submitTxt: {
     color: 'white',
+    fontSize:util.WP(3)
   },
   modalContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -148,8 +166,10 @@ const styles = StyleSheet.create({
     borderRadius: util.WP(2),
     borderColor: 'grey',
     marginHorizontal: util.WP(3),
-    marginTop: util.WP(3),
+    marginTop: util.WP(1),
     paddingBottom: util.WP(2.5),
+    marginBottom: util.WP(1),
+    flex:1
   },
   deleteHeader: {
     flexDirection: 'row',
@@ -168,6 +188,7 @@ const styles = StyleSheet.create({
     paddingVertical: util.WP(4),
     paddingHorizontal: util.WP(1),
     justifyContent: 'space-between',
+    alignItems:'center'
   },
   deleteEmailHead: {
     fontWeight: 'bold',
@@ -197,8 +218,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'white',
     width: util.WP(90),
-    height: util.HP(50),
-    marginTop: util.HP(17),
+    height: util.HP(70),
+    marginTop: util.HP(10),
     borderRadius: util.WP(4),
   },
   requestDesc: {
@@ -212,7 +233,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     alignSelf: 'center',
-    bottom: util.WP(5),
+    bottom: util.WP(7),
   },
   requestReject: {
     backgroundColor: 'red',
@@ -234,7 +255,7 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontWeight: 'bold',
     fontStyle: 'italic',
-    fontSize: util.WP(4.5),
+    fontSize: util.WP(4),
   },
   reviewForm: {
     backgroundColor: 'white',
@@ -260,6 +281,7 @@ const styles = StyleSheet.create({
   },
   emptyListText: {
     color: 'white',
+    fontSize: util.WP(3)
   },
   deleteTypeHead: {
     fontWeight: 'bold',
@@ -282,6 +304,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     marginVertical: util.WP(4),
+    fontSize:util.WP(3)
   },
   faqs: {
     backgroundColor: util.USER_BASE_COLOR,
@@ -316,8 +339,10 @@ const styles = StyleSheet.create({
     marginTop: util.WP(4),
     marginHorizontal: util.WP(4),
     borderWidth: util.WP(0.5),
+    paddingHorizontal:util.WP(2),
     borderRadius: util.WP(3),
     height: util.WP(63),
+    fontSize:util.WP(3)
   },
   requestSubmitBtn: {
     backgroundColor: util.USER_BASE_COLOR,
@@ -330,13 +355,14 @@ const styles = StyleSheet.create({
     borderWidth: util.WP(0.5),
     borderRadius: util.WP(3),
     height: util.WP(70),
-    paddingHorizontal: util.WP(3),
+    paddingHorizontal: util.WP(2),
+    fontSize:util.WP(3)
   },
   newFormHeading: {
     fontWeight: 'bold',
     alignSelf: 'center',
     marginTop: util.WP(3),
-    fontSize: util.WP(6),
+    fontSize: util.WP(5),
     fontStyle: 'italic',
   },
   requestStatus: {
@@ -346,6 +372,28 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textDecorationLine: 'underline',
   },
+  inputIcon:{
+    left:util.WP(-10)
+  },
+  deleteItemTxt:{
+    fontSize:util.WP(2),
+     fontWeight:'bold'
+  },
+  credsText:{
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize:util.WP(3)
+  },
+  loginBtnText:{
+    alignSelf: 'center',
+    color: 'white',
+    fontSize:util.WP(3)
+  },
+  headerText:{
+    alignSelf: 'center',
+    color: 'white',
+    fontSize:util.WP(3)
+  }
 });
 
 export default styles;

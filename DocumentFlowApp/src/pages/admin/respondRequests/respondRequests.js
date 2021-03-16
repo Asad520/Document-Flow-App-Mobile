@@ -53,7 +53,7 @@ export class RespondRequests extends Component {
           />
         </TouchableOpacity>
 
-        <Text style={styles.addUserTxt}>
+        <Text style={styles.delTxt}>
           Following requests are waiting for your response:
         </Text>
         <View style={styles.deleteContainer}>
@@ -66,6 +66,14 @@ export class RespondRequests extends Component {
             keyExtractor={(req) => req.id}
             renderItem={(req) => this.renderRequests(req)}
             fadingEdgeLength={50}
+            ListEmptyComponent={() => (
+              <View style={styles.emptyList}>
+                <Text style={styles.emptyListText}>
+                  {'No items to show...      '}
+                </Text>
+                <Icon name="warning" color="white" size={util.WP(6)} />
+              </View>
+            )}
           />
         </View>
         {currentReq && (
@@ -113,17 +121,17 @@ export class RespondRequests extends Component {
   renderRequests({item}) {
     return (
       item.status === 'pending' && (
-        <TouchableOpacity style={styles.itemContainer}>
-          <Text>{item.email}</Text>
-          <View style={styles.deleteItemName}>
-            <Text>{item.type}</Text>
-          </View>
+        <TouchableOpacity 
+          style={styles.itemContainer}
+          onPress={() => this.setState({currentReq: item})}
+        >
+          <Text style={[styles.deleteItemTxt, {marginLeft:util.WP(3), fontSize:util.WP(2.5)}]} >{item.email}</Text>
+          <Text style={[styles.deleteItemTxt, {marginLeft:util.WP(3), fontSize:util.WP(2.5)}]}>{item.type}</Text>
           <Icon
             name="layers"
             color="#4d4d4d"
             size={util.WP(7)}
             style={styles.deleteItemIcon}
-            onPress={() => this.setState({currentReq: item})}
           />
         </TouchableOpacity>
       )

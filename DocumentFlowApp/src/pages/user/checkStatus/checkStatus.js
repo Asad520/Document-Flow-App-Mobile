@@ -70,7 +70,6 @@ export class CheckStatus extends Component {
                     onPress={() => this.setState({currentReq: false})}
                   />
                   <View style={styles.requestModalHead}>
-                    {console.log(currentReq)}
                     <Text style={styles.requestHeadText}>
                       From: {currentReq.email}
                     </Text>
@@ -97,20 +96,18 @@ export class CheckStatus extends Component {
 
   renderRequests({item}) {
     return (
-      <TouchableOpacity style={styles.itemContainer}>
-        <Text>{item.date}</Text>
-        <View style={styles.deleteItemName}>
-          <Text>{item.type}</Text>
-        </View>
-        <View>
-          <Text>{item.status.toUpperCase()}</Text>
-        </View>
+      <TouchableOpacity 
+      style={styles.itemContainer}
+      onPress={() => this.setState({currentReq: item})}
+      >
+        <Text style={styles.deleteItemTxt}>{item.date}</Text>
+        <Text style={styles.deleteItemTxt}>{item.type}</Text>
+        <Text style={styles.deleteItemTxt}>{item.status.toUpperCase()}</Text>
         <Icon
           name="layers"
           color="#4d4d4d"
           size={util.WP(7)}
           style={styles.deleteItemIcon}
-          onPress={() => this.setState({currentReq: item})}
         />
       </TouchableOpacity>
     );
@@ -118,7 +115,6 @@ export class CheckStatus extends Component {
 }
 
 mapStateToProps = (state) => {
-  console.log('Forms: ', state.formManagement.forms);
   return {
     allRequests: state.requests.requests,
   };

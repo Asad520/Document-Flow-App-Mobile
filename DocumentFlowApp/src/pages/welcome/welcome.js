@@ -7,6 +7,7 @@ import {
   View,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import * as util from '../../utilities/index';
 
@@ -20,7 +21,7 @@ class Welcome extends React.Component {
 
   render() {
     return (
-      <>
+      <ScrollView>
         <ImageBackground
           source={require('../../assets/forest.png')}
           style={{height: util.HP(40)}}>
@@ -29,7 +30,7 @@ class Welcome extends React.Component {
           </View>
         </ImageBackground>
         <View style={styles.innerContainer}>
-          <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>
+          <Text style={{alignSelf: 'center', fontWeight: 'bold', fontSize:util.WP(3)}}>
             Please Choose a Portal!
           </Text>
           <TouchableOpacity
@@ -62,7 +63,7 @@ class Welcome extends React.Component {
             />
           </View>
         </ImageBackground>
-      </>
+      </ScrollView>
     );
   }
 }

@@ -27,7 +27,7 @@ class AdminHome extends Component {
     };
   }
   render() {
-    const {navigation} = this.props;
+
     const {modalVisible} = this.state;
     return (
       <View style={{flex: 1}}>
@@ -53,7 +53,7 @@ class AdminHome extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={{alignSelf: 'center', color: 'white'}}>
+            <Text style={styles.headerText}>
               You're logged in as Admin
             </Text>
           </View>

@@ -53,7 +53,7 @@ export class DeleteForm extends Component {
             />
           </TouchableOpacity>
 
-          <Text style={styles.addUserTxt}>
+          <Text style={styles.delTxt}>
             Which Form do you want to delete?
           </Text>
           <View style={styles.deleteContainer}>
@@ -106,22 +106,19 @@ export class DeleteForm extends Component {
 
   renderForms({item}) {
     return (
-      <TouchableOpacity style={styles.itemContainer}>
-        <Text>{item.formId}</Text>
-        <View style={styles.deleteItemName}>
-          <Text>{item.formType}</Text>
-        </View>
-        <View>
-          <Text>{item.formName}</Text>
-        </View>
+      <TouchableOpacity 
+      style={styles.itemContainer}
+      onPress={() =>
+        this.setState({modalVisible: true, formId: item.formId})
+      }>
+        <Text style={styles.deleteItemTxt}>{item.formId}</Text>
+        <Text style={styles.deleteItemTxt}>{item.formType}</Text>
+        <Text style={styles.deleteItemTxt}>{item.formName}</Text>
         <Icon
           name="circle-with-cross"
           color="red"
           size={util.WP(7)}
           style={styles.deleteItemIcon}
-          onPress={() =>
-            this.setState({modalVisible: true, formId: item.formId})
-          }
         />
       </TouchableOpacity>
     );

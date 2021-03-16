@@ -22,7 +22,7 @@ class BigButton extends Component {
           style={{height: util.WP(22)}}
           resizeMode="contain"
         />
-        <Text style={{color: 'white'}}> {text} </Text>
+        <Text style={{color: 'white', fontSize:util.WP(3)}}> {text} </Text>
       </View>
     );
   }

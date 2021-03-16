@@ -49,7 +49,7 @@ export class AddUser extends Component {
           />
           <KeyboardAwareScrollView>
             <Text style={styles.addUserTxt}>
-              {'Please fill out following details to add new user!'}
+              Please fill out following details to add new user!
             </Text>
 
             <View style={styles.addUserContainer}>
@@ -72,6 +72,7 @@ export class AddUser extends Component {
               <Text style={styles.addUserLabel}>Email:</Text>
               <TextInput
                 style={styles.addUserInput}
+                value={this.state.value}
                 placeholder="Enter Email..."
                 onChangeText={(email) =>
                   this.setState({email: email.toLowerCase()})
