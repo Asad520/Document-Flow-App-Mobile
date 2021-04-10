@@ -30,7 +30,12 @@ class Welcome extends React.Component {
           </View>
         </ImageBackground>
         <View style={styles.innerContainer}>
-          <Text style={{alignSelf: 'center', fontWeight: 'bold', fontSize:util.WP(3)}}>
+          <Text
+            style={{
+              alignSelf: 'center',
+              fontWeight: 'bold',
+              fontSize: util.WP(4),
+            }}>
             Please Choose a Portal!
           </Text>
           <TouchableOpacity
@@ -44,25 +49,13 @@ class Welcome extends React.Component {
             <Text style={styles.portalBtnTxt}>Login as User</Text>
           </TouchableOpacity>
         </View>
-        <ImageBackground
-          source={require('../../assets/foot.png')}
-          style={styles.findUs}
-          resizeMode="cover">
-          <View style={[styles.findContainer, {marginTop: util.WP(17)}]}>
-            <Image
-              source={require('../../assets/gmail.png')}
-              style={styles.footImg}
-            />
-            <Image
-              source={require('../../assets/fb.png')}
-              style={styles.footImg}
-            />
-            <Image
-              source={require('../../assets/twitter.png')}
-              style={styles.footImg}
-            />
-          </View>
-        </ImageBackground>
+        <View
+          style={{
+            width: '100%',
+            height: util.HP(15),
+            marginTop: util.WP(8),
+            backgroundColor: '#525F6D',
+          }}></View>
       </ScrollView>
     );
   }

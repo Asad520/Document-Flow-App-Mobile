@@ -42,12 +42,12 @@ export class AddUser extends Component {
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{flex: 1}}>
           <Header navigation={navigation} />
-          <SmallButton
-            text="Add User"
-            color="#FC4C59"
-            imgAddress={require('../../../assets/addUser.png')}
-          />
           <KeyboardAwareScrollView>
+            <SmallButton
+              text="Add User"
+              color="#FC4C59"
+              imgAddress={require('../../../assets/addUser.png')}
+            />
             <Text style={styles.addUserTxt}>
               Please fill out following details to add new user!
             </Text>

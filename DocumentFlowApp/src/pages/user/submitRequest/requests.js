@@ -9,6 +9,7 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/Entypo';
@@ -108,7 +109,7 @@ export class Requests extends Component {
     return (
       <Modal animationType="slide" transparent>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <View style={styles.modalContainer}>
+          <ScrollView style={styles.modalContainer}>
             <View style={styles.requestContainer}>
               <Icon
                 name="cross"
@@ -138,7 +139,7 @@ export class Requests extends Component {
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </ScrollView>
         </TouchableWithoutFeedback>
       </Modal>
     );

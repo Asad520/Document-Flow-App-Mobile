@@ -3,28 +3,31 @@ const initialState = {
   users: [
     {
       fName: 'Asad',
-      lName: 'butt',
+      lName: 'Shabir',
       email: 'bsef17m520@pucit.edu.pk',
       password: '123',
       type: 'admin',
     },
     {
-      fName: 'Hassan',
-      lName: 'Ballu',
+      fName: 'M.',
+      lName: 'Hassan',
       email: 'bsef17m541@pucit.edu.pk',
       password: '123',
+      type: 'user',
     },
     {
       fName: 'Minahil',
       lName: 'Mustfa',
       email: 'bsef17m518@pucit.edu.pk',
       password: '123',
+      type: 'user',
     },
     {
       fName: 'Zain',
       lName: 'Abid',
       email: 'bsef17m517@pucit.edu.pk',
       password: '123',
+      type: 'user',
     },
   ],
 };

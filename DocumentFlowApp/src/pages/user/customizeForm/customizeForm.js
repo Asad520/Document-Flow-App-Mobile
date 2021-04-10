@@ -59,7 +59,7 @@ export class CustomizeForm extends Component {
         <View>
           <Header />
           <Text style={styles.newFormHeading}>Customize Form Request!</Text>
-          <View style={{...styles.requestContainer, marginTop: util.WP(5)}}>
+          <View style={{...styles.requestContainer, marginTop: util.WP(15)}}>
             <View style={styles.requestModalHead}>
               <Text style={styles.requestHeadText}>From: BSEF17m520</Text>
               <Text style={styles.requestHeadText}>Type: Customize Form</Text>

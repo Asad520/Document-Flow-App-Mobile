@@ -121,12 +121,15 @@ export class RespondRequests extends Component {
   renderRequests({item}) {
     return (
       item.status === 'pending' && (
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.itemContainer}
-          onPress={() => this.setState({currentReq: item})}
-        >
-          <Text style={[styles.deleteItemTxt, {marginLeft:util.WP(3), fontSize:util.WP(2.5)}]} >{item.email}</Text>
-          <Text style={[styles.deleteItemTxt, {marginLeft:util.WP(3), fontSize:util.WP(2.5)}]}>{item.type}</Text>
+          onPress={() => this.setState({currentReq: item})}>
+          <Text style={[styles.deleteItemTxt, {marginLeft: util.WP(3)}]}>
+            {item.email}
+          </Text>
+          <Text style={[styles.deleteItemTxt, {marginLeft: util.WP(3)}]}>
+            {item.type}
+          </Text>
           <Icon
             name="layers"
             color="#4d4d4d"
