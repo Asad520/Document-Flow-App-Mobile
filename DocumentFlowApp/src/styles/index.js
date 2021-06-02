@@ -326,8 +326,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontStyle: 'italic',
     fontSize: util.WP(4.5),
-    marginLeft: util.WP(3),
-    marginTop: util.WP(-5),
+    paddingHorizontal: util.WP(3),
+    marginTop: util.WP(-3),
   },
   currentAns: {
     paddingHorizontal: util.WP(3),

@@ -2,18 +2,24 @@ import axios from 'axios';
 import * as TYPES from '../../types';
 
 export const addRequest = (newRequest) => {
-  return {
-    type: TYPES.ADD_REQUEST,
-    payload: newRequest,
+  return async (dispatch) => {
+    try {
+      const res = await axios.post('requests', newRequest);
+      dispatch({
+        type: TYPES.ADD_REQUEST,
+        payload: res.data,
+      });
+      return true;
+    } catch (error) {
+      alert('Error: ', error.message);
+    }
   };
 };
 
 export const saveRequests = (request, allRequests) => {
-  // console.log('requesTt:', allRequests);
   return async (dispatch) => {
     try {
       const res = await axios.put('requests/' + request.id, request);
-      console.log('res: .', res);
       dispatch(filterRequests(request, allRequests));
       return true;
     } catch (error) {

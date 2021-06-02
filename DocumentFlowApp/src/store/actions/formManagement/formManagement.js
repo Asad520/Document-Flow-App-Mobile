@@ -2,7 +2,6 @@ import axios from 'axios';
 import * as TYPES from '../../types';
 
 export const addForm = (newForm) => {
-  console.log('form:', newForm);
   return async (dispatch) => {
     try {
       const res = await axios.post('forms', newForm);
@@ -14,7 +13,6 @@ export const addForm = (newForm) => {
         return 'new';
       }
     } catch (error) {
-      console.log(`error`, error);
       if (error.message === 'Request failed with status code 500') {
         alert(`Form already exists with ID: ${newForm.formId}`);
       } else {
@@ -25,7 +23,6 @@ export const addForm = (newForm) => {
 };
 
 export const deleteForm = (form, allForms) => {
-  console.log(`form.id`, form.id);
   return async (dispatch) => {
     try {
       await axios.delete('forms/' + form.id);

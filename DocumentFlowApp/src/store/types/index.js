@@ -9,7 +9,7 @@ export const DELETE_FORM = 'DELETE_FORM';
 export const GET_ALL_FORMS = 'GET_ALL_FORMS';
 
 export const LOGOUT = 'LOGOUT';
-export const SAVE_FAQS = 'SAVE_FAQS';
+export const GET_ALL_FAQS = 'GET_ALL_FAQS';
 
 export const GET_ALL_REQUESTS = 'GET_ALL_REQUESTS';
 export const ADD_REQUEST = 'ADD_REQUEST';

@@ -11,7 +11,6 @@ export const addUser = (newUser) => {
       });
       return res.data;
     } catch (error) {
-      console.log('error:', error, newUser);
       if (error.message === 'Request failed with status code 500') {
         alert(`User already exists with Email: ${newUser.email}`);
       } else {

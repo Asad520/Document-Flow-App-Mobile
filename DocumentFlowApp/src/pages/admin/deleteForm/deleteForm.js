@@ -63,7 +63,7 @@ export class DeleteForm extends Component {
               <Text style={styles.deleteFormNameHead}>Name:</Text>
             </View>
             <FlatList
-              data={sortBy(allForms, curForm.formId)}
+              data={sortBy(allForms, 'formName')}
               keyExtractor={(form) => form.formId}
               renderItem={(form) => this.renderForms(form)}
               fadingEdgeLength={50}

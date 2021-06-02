@@ -17,7 +17,6 @@ import Header from '../../../components/userHeader';
 import styles from '../../../styles/index';
 import * as util from '../../../utilities';
 import {sortBy} from 'lodash';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as TASKS from '../../../store/actions';
 import uuid from 'react-uuid';
 
@@ -35,25 +34,30 @@ export class Requests extends Component {
   }
 
   componentDidMount() {
-    //get forms from api
+    this.props.getAllForms();
   }
 
-  submitRequest() {
+  async submitRequest() {
     const {currentForm, requestDescr} = this.state;
-    const {submitRequest} = this.props;
+    const {submitRequest, user} = this.props;
     if (requestDescr.trim()) {
       const newRequest = {
-        id: uuid(),
         type: currentForm.formType,
         desc: requestDescr,
-        email: 'BSEF17m520',
+        email: user.email,
         status: 'pending',
-        date: new Date().toLocaleDateString(),
       };
-      submitRequest(newRequest);
-      Alert.alert(`Alert`, `Request submitted successfully!`, [{text: 'OK'}], {
-        cancelable: false,
-      });
+      const res = await submitRequest(newRequest);
+      if (res) {
+        Alert.alert(
+          `Alert`,
+          `Request submitted successfully!`,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
+      }
       this.setState({currentForm: false, requestDescr: ''});
     } else {
       Alert.alert(
@@ -67,14 +71,14 @@ export class Requests extends Component {
     }
   }
   render() {
-    const {allForms} = this.props;
+    const {allForms, user} = this.props;
     const {currentForm} = this.state;
     return (
       <View style={{flex: 1}}>
         <Header />
         <Text style={styles.faqText}>Click on a form to open it:</Text>
         <FlatList
-          data={sortBy(allForms, 'formName')}
+          data={sortBy(allForms, 'FormName')}
           keyExtractor={(form) => form.formId}
           renderItem={(form) => this.renderForms(form)}
           fadingEdgeLength={50}
@@ -99,13 +103,14 @@ export class Requests extends Component {
         onPress={() => {
           this.setState({currentForm: item});
         }}>
-        <Text style={styles.queText}>{item.formName}</Text>
+        <Text style={styles.queText}>{item.FormName}</Text>
       </TouchableOpacity>
     );
   };
 
   renderSelectedForm = () => {
     const {currentForm, requestDescr} = this.state;
+    const {user} = this.props;
     return (
       <Modal animationType="slide" transparent>
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -118,7 +123,9 @@ export class Requests extends Component {
                 onPress={() => this.setState({currentForm: false})}
               />
               <View style={styles.requestModalHead}>
-                <Text style={styles.requestHeadText}>From: BSEF17m520</Text>
+                <Text style={styles.requestHeadText}>
+                  From: {user.email.split('@')[0]}
+                </Text>
                 <Text style={styles.requestHeadText}>
                   Type: {currentForm.formType}
                 </Text>
@@ -149,12 +156,14 @@ export class Requests extends Component {
 const mapStateToProps = (state) => {
   return {
     allForms: state.formManagement.forms,
+    user: state.auth.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     submitRequest: (newRequest) => dispatch(TASKS.addRequest(newRequest)),
+    getAllForms: () => dispatch(TASKS.getAllForms()),
   };
 };
 

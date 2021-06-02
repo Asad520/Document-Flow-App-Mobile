@@ -24,22 +24,27 @@ export class NewForm extends Component {
     //get forms from api
   }
 
-  submitRequest() {
+  async submitRequest() {
     const {requestDescr} = this.state;
-    const {submitRequest} = this.props;
+    const {submitRequest, user} = this.props;
     if (requestDescr.trim()) {
       const newRequest = {
-        id: uuid(),
         type: 'New Form',
         desc: requestDescr,
-        email: 'BSEF17m520',
+        email: user.email,
         status: 'pending',
-        date: new Date().toLocaleDateString(),
       };
-      submitRequest(newRequest);
-      Alert.alert(`Alert`, `Request submitted successfully!`, [{text: 'OK'}], {
-        cancelable: false,
-      });
+      const res = await submitRequest(newRequest);
+      if (res) {
+        Alert.alert(
+          `Alert`,
+          `Request submitted successfully!`,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
+      }
       this.setState({requestDescr: ''});
     } else {
       Alert.alert(
@@ -54,6 +59,7 @@ export class NewForm extends Component {
   }
   render() {
     const {requestDescr} = this.state;
+    const {user} = this.props;
     return (
       <KeyboardAwareScrollView style={{flex: 1, backgroundColor: 'white'}}>
         <View>
@@ -61,7 +67,9 @@ export class NewForm extends Component {
           <Text style={styles.newFormHeading}>New Form Request!</Text>
           <View style={{...styles.requestContainer, marginTop: util.WP(15)}}>
             <View style={styles.requestModalHead}>
-              <Text style={styles.requestHeadText}>From: BSEF17m520</Text>
+              <Text style={styles.requestHeadText}>
+                From: {user.email.split('@')[0]}
+              </Text>
               <Text style={styles.requestHeadText}>Type: New Form</Text>
             </View>
             <TextInput
@@ -87,7 +95,9 @@ export class NewForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.auth.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -144,7 +144,6 @@ export class AddForm extends Component {
     };
 
     const response = await addFormAction(newForm);
-    console.log('formmm', response);
     if (response === 'new') {
       Alert.alert(
         `Successful`,

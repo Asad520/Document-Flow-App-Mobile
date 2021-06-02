@@ -14,8 +14,6 @@ export const login = (curUser) => {
     let response;
     try {
       response = await axios.get('clients');
-      console.log('res:', response.data);
-      console.log(`curUser`, curUser);
       const user = checkUser(response.data, curUser);
       if (user) {
         dispatch({
@@ -29,14 +27,12 @@ export const login = (curUser) => {
         }
       }
     } catch (error) {
-      console.log('Error', error);
       alert(error.message);
     }
   };
 };
 
 const checkUser = (allUsers, curUser) => {
-  console.log('all:', allUsers, curUser);
   const user = allUsers.find((user) => user.email === curUser.email);
   if (user) {
     if (user.password === curUser.password) {

@@ -6,7 +6,6 @@ import styles from '../../../styles/index';
 import * as util from '../../../utilities';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scrollview';
 import * as TASKS from '../../../store/actions';
-import uuid from 'react-uuid';
 
 export class CustomizeForm extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -20,26 +19,27 @@ export class CustomizeForm extends Component {
     };
   }
 
-  componentDidMount() {
-    //get forms from api
-  }
-
-  submitRequest() {
+  async submitRequest() {
     const {requestDescr} = this.state;
-    const {submitRequest} = this.props;
+    const {submitRequest, user} = this.props;
     if (requestDescr.trim()) {
       const newRequest = {
-        id: uuid(),
         type: 'Customize Form',
         desc: requestDescr,
-        email: 'BSEF17m520',
+        email: user.email,
         status: 'pending',
-        date: new Date().toLocaleDateString(),
       };
-      submitRequest(newRequest);
-      Alert.alert(`Alert`, `Request submitted successfully!`, [{text: 'OK'}], {
-        cancelable: false,
-      });
+      const res = await submitRequest(newRequest);
+      if (res) {
+        Alert.alert(
+          `Alert`,
+          `Request submitted successfully!`,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
+      }
       this.setState({requestDescr: ''});
     } else {
       Alert.alert(
@@ -54,6 +54,7 @@ export class CustomizeForm extends Component {
   }
   render() {
     const {requestDescr} = this.state;
+    const {user} = this.props;
     return (
       <KeyboardAwareScrollView style={{flex: 1, backgroundColor: 'white'}}>
         <View>
@@ -61,7 +62,9 @@ export class CustomizeForm extends Component {
           <Text style={styles.newFormHeading}>Customize Form Request!</Text>
           <View style={{...styles.requestContainer, marginTop: util.WP(15)}}>
             <View style={styles.requestModalHead}>
-              <Text style={styles.requestHeadText}>From: BSEF17m520</Text>
+              <Text style={styles.requestHeadText}>
+                From: {user.email.split('@')[0]}
+              </Text>
               <Text style={styles.requestHeadText}>Type: Customize Form</Text>
             </View>
             <TextInput
@@ -87,7 +90,9 @@ export class CustomizeForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    user: state.auth.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

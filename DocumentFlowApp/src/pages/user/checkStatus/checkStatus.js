@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
+  FlatList,
 } from 'react-native';
 import {connect} from 'react-redux';
 import * as util from '../../../utilities';
@@ -12,7 +13,6 @@ import * as TASKS from '../../../store/actions';
 import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import Header from '../../../components/userHeader';
-import {FlatList} from 'react-native-gesture-handler';
 import {sortBy} from 'lodash';
 
 export class CheckStatus extends Component {
@@ -25,11 +25,19 @@ export class CheckStatus extends Component {
 
     this.state = {
       currentReq: false,
+      allRequests: this.props.allRequests,
     };
   }
 
+  componentDidMount() {
+    this.props.getAllRequests();
+  }
+
   render() {
-    const {allRequests} = this.props;
+    const {user} = this.props;
+    const allRequests = this.props.allRequests.filter(
+      (req) => req.email !== user.email,
+    );
     const {currentReq} = this.state;
     return (
       <TouchableWithoutFeedback>
@@ -45,8 +53,8 @@ export class CheckStatus extends Component {
               <Text style={styles.deleteFormNameHead}>Status:</Text>
             </View>
             <FlatList
-              data={sortBy(allRequests, 'date')}
-              keyExtractor={(request) => request.id}
+              data={sortBy(allRequests, 'published_at')}
+              keyExtractor={(request) => request.id.toString()}
               renderItem={(request) => this.renderRequests(request)}
               fadingEdgeLength={50}
               ListEmptyComponent={() => (
@@ -71,7 +79,7 @@ export class CheckStatus extends Component {
                   />
                   <View style={styles.requestModalHead}>
                     <Text style={styles.requestHeadText}>
-                      From: {currentReq.email}
+                      From: {currentReq.email.split('@')[0]}
                     </Text>
                     <Text style={styles.requestHeadText}>
                       Type: {currentReq.type}
@@ -82,6 +90,15 @@ export class CheckStatus extends Component {
                     <View>
                       <Text style={styles.requestStatus}>
                         {currentReq.status.toUpperCase()}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: util.WP(3),
+                          fontWeight: 'bold',
+                          fontStyle: 'italic',
+                        }}>
+                        Responded By:{' '}
+                        {currentReq.respondedBy.toUpperCase().split('@')[0]}
                       </Text>
                     </View>
                   </View>
@@ -96,11 +113,12 @@ export class CheckStatus extends Component {
 
   renderRequests({item}) {
     return (
-      <TouchableOpacity 
-      style={styles.itemContainer}
-      onPress={() => this.setState({currentReq: item})}
-      >
-        <Text style={styles.deleteItemTxt}>{item.date}</Text>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => this.setState({currentReq: item})}>
+        <Text style={styles.deleteItemTxt}>
+          {item.published_at.split('T')[0]}
+        </Text>
         <Text style={styles.deleteItemTxt}>{item.type}</Text>
         <Text style={styles.deleteItemTxt}>{item.status.toUpperCase()}</Text>
         <Icon
@@ -117,13 +135,13 @@ export class CheckStatus extends Component {
 mapStateToProps = (state) => {
   return {
     allRequests: state.requests.requests,
+    user: state.auth.user,
   };
 };
 
 mapDispatchToProps = (dispatch) => {
   return {
-    deleteForm: (formId, allForms) =>
-      dispatch(TASKS.deleteForm(formId, allForms)),
+    getAllRequests: () => dispatch(TASKS.getAllRequests()),
   };
 };
 
