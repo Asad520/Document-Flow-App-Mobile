@@ -29,13 +29,15 @@ export class DeleteForm extends Component {
     this.state = {
       modalVisible: false,
       allForms: this.props.allForms,
-      formId: '',
+      curForm: {},
     };
   }
-
+  componentDidMount() {
+    this.props.getAllForms();
+  }
   render() {
     const {allForms} = this.props;
-    const {modalVisible, formId} = this.state;
+    const {modalVisible, curForm} = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{flex: 1}}>
@@ -53,9 +55,7 @@ export class DeleteForm extends Component {
             />
           </TouchableOpacity>
 
-          <Text style={styles.delTxt}>
-            Which Form do you want to delete?
-          </Text>
+          <Text style={styles.delTxt}>Which Form do you want to delete?</Text>
           <View style={styles.deleteContainer}>
             <View style={styles.deleteHeader}>
               <Text style={styles.deleteEmailHead}>ID:</Text>
@@ -63,7 +63,7 @@ export class DeleteForm extends Component {
               <Text style={styles.deleteFormNameHead}>Name:</Text>
             </View>
             <FlatList
-              data={sortBy(allForms, 'formId')}
+              data={sortBy(allForms, curForm.formId)}
               keyExtractor={(form) => form.formId}
               renderItem={(form) => this.renderForms(form)}
               fadingEdgeLength={50}
@@ -91,7 +91,7 @@ export class DeleteForm extends Component {
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    onPress={() => this.deleteForm(formId)}
+                    onPress={() => this.deleteForm(curForm)}
                     style={styles.modalAccept}>
                     <Icon name="check" color="white" size={util.WP(8)} />
                   </TouchableOpacity>
@@ -106,14 +106,12 @@ export class DeleteForm extends Component {
 
   renderForms({item}) {
     return (
-      <TouchableOpacity 
-      style={styles.itemContainer}
-      onPress={() =>
-        this.setState({modalVisible: true, formId: item.formId})
-      }>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => this.setState({modalVisible: true, curForm: item})}>
         <Text style={styles.deleteItemTxt}>{item.formId}</Text>
         <Text style={styles.deleteItemTxt}>{item.formType}</Text>
-        <Text style={styles.deleteItemTxt}>{item.formName}</Text>
+        <Text style={styles.deleteItemTxt}>{item.FormName}</Text>
         <Icon
           name="circle-with-cross"
           color="red"
@@ -123,27 +121,14 @@ export class DeleteForm extends Component {
       </TouchableOpacity>
     );
   }
-  deleteForm(formId) {
-    const {allForms, deleteForm} = this.props;
-    const response = deleteForm(formId, allForms);
-    if (response) {
-      Alert.alert(
-        `Success`,
-        `Form with ID: ${formId} has been deleted!`,
-        [{text: 'OK'}],
-        {
-          cancelable: false,
-        },
-      );
-    } else {
-      Alert.alert(`Failed`, `Error deleting form: ${formId}`, [{text: 'OK'}], {
-        cancelable: false,
-      });
+
+  async deleteForm(curForm) {
+    const {allForms, deleteFormAction} = this.props;
+    const res = await deleteFormAction(curForm, allForms);
+    this.setState({modalVisible: false, allForms: this.props.allForms});
+    if (res) {
+      alert(`Form deleted successfully: ${curForm.formId}`);
     }
-    this.setState({modalVisible: false});
-    //input checks
-    //API call to add user
-    //if successful
   }
 }
 
@@ -155,8 +140,9 @@ mapStateToProps = (state) => {
 
 mapDispatchToProps = (dispatch) => {
   return {
-    deleteForm: (formId, allForms) =>
-      dispatch(TASKS.deleteForm(formId, allForms)),
+    deleteFormAction: (curForm, allForms) =>
+      dispatch(TASKS.deleteForm(curForm, allForms)),
+    getAllForms: () => dispatch(TASKS.getAllForms()),
   };
 };
 

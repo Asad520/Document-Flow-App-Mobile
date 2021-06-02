@@ -14,6 +14,7 @@ import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import Footer from '../../../components/userFooter';
 import BigButton from '../../../components/bigButton';
+import * as actions from '../../../store/actions';
 
 class UserHome extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -52,9 +53,7 @@ class UserHome extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={styles.headerText}>
-              You're logged in as Student
-            </Text>
+            <Text style={styles.headerText}>You're logged in as Student</Text>
           </View>
         </ImageBackground>
         <Modal animationType="slide" visible={modalVisible} transparent>
@@ -146,12 +145,17 @@ class UserHome extends Component {
   logout() {
     //empty store
     this.setState({modalVisible: false});
+    this.props.logoutAction();
     util.navigate('welcome');
   }
 }
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutAction: () => dispatch(actions.logoutAction()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserHome);

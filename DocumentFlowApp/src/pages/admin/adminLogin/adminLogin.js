@@ -70,15 +70,17 @@ class AdminLogin extends React.Component {
                   style={styles.inputIcon}
                 />
               </View>
-              <View style={styles.iconContainer}>     
+              <View style={styles.iconContainer}>
                 <TextInput
                   style={styles.loginInput}
                   placeholder="Enter Password..."
                   secureTextEntry={true}
-                  onChangeText={(password) => this.setState({password: password})}
+                  onChangeText={(password) =>
+                    this.setState({password: password})
+                  }
                   value={this.state.password}
                 />
-                 <Image
+                <Image
                   source={require('../../../assets/pwdIcon.png')}
                   style={styles.inputIcon}
                 />
@@ -90,9 +92,7 @@ class AdminLogin extends React.Component {
               onPress={() => {
                 this.login();
               }}>
-              <Text style={styles.loginBtnText}>
-                Get Started
-              </Text>
+              <Text style={styles.loginBtnText}>Get Started</Text>
             </TouchableOpacity>
             <Footer />
           </View>

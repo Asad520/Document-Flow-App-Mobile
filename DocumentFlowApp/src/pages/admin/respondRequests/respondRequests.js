@@ -19,21 +19,25 @@ export class RespondRequests extends Component {
     this.state = {
       modalVisible: false,
       currentReq: false,
+      allRequests: this.props.allRequests,
     };
   }
 
-  respondRequests(newStatus) {
-    const {allRequests, saveRequests} = this.props;
+  componentDidMount() {
+    this.props.getAllRequests();
+  }
+
+  async respondRequests(newStatus) {
+    const {allRequests, saveRequests, user} = this.props;
     const {currentReq} = this.state;
-    const newRequests = allRequests.map((request) => {
-      if (request.id === currentReq.id) {
-        return {...currentReq, status: newStatus};
-      }
-      return request;
-    });
-    saveRequests(newRequests);
+    const request = {...currentReq, status: newStatus, respondedBy: user.email};
+    const res = await saveRequests(request, allRequests);
+    if (res) {
+      alert('Request ' + newStatus + ' successfully!');
+    }
     this.setState({currentReq: false});
   }
+
   render() {
     const {allRequests} = this.props;
     const {currentReq} = this.state;
@@ -63,7 +67,7 @@ export class RespondRequests extends Component {
           </View>
           <FlatList
             data={sortBy(allRequests, 'email')}
-            keyExtractor={(req) => req.id}
+            keyExtractor={(req) => req.id.toString()}
             renderItem={(req) => this.renderRequests(req)}
             fadingEdgeLength={50}
             ListEmptyComponent={() => (
@@ -145,12 +149,15 @@ export class RespondRequests extends Component {
 mapStateToProps = (state) => {
   return {
     allRequests: state.requests.requests,
+    user: state.auth.user,
   };
 };
 
 mapDispatchToProps = (dispatch) => {
   return {
-    saveRequests: (newRequests) => dispatch(TASKS.saveRequests(newRequests)),
+    saveRequests: (request, allRequests) =>
+      dispatch(TASKS.saveRequests(request, allRequests)),
+    getAllRequests: () => dispatch(TASKS.getAllRequests()),
   };
 };
 

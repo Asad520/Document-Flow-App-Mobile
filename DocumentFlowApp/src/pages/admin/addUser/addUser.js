@@ -66,7 +66,6 @@ export class AddUser extends Component {
                 placeholder="Enter Last Name..."
                 onChangeText={(lName) => this.setState({lName: lName})}
                 value={this.state.lName}
-                maxLength={4}
                 multiline={false}
               />
               <Text style={styles.addUserLabel}>Email:</Text>
@@ -98,7 +97,7 @@ export class AddUser extends Component {
               />
               <TouchableOpacity
                 style={styles.submitBtn}
-                onPress={() => this.setState({modalVisible: true})}>
+                onPress={() => this.addUser()}>
                 <Text style={styles.submitTxt}>Add User</Text>
               </TouchableOpacity>
             </View>
@@ -117,7 +116,7 @@ export class AddUser extends Component {
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    onPress={() => this.addUser()}
+                    onPress={() => this.addUserToDb()}
                     style={styles.modalAccept}>
                     <Icon name="check" color="white" size={util.WP(8)} />
                   </TouchableOpacity>
@@ -132,8 +131,6 @@ export class AddUser extends Component {
 
   addUser() {
     const {fName, lName, email, password, confirmPassword} = this.state;
-    const {addUser, allUsers} = this.props;
-    const newUser = {fName, lName, email, password};
     if (
       fName === '' ||
       lName === '' ||
@@ -147,33 +144,46 @@ export class AddUser extends Component {
       });
       return;
     }
-    const response = addUser(newUser, allUsers);
-    if (response === 'old') {
-      Alert.alert(`Failed`, `User ${email} already exists!`, [{text: 'OK'}], {
-        cancelable: false,
-      });
-    } else {
-      Alert.alert(
-        `Successful`,
-        `User ${email} has been added!`,
-        [{text: 'OK'}],
-        {cancelable: false},
-      );
+    if (!util.emailValidator(email)) {
+      alert('Invalid Email!');
+      return;
+    }
+    if (password.length < 4) {
+      alert('Password cannot be less than 4 characters!');
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    this.setState({modalVisible: true});
+    //input checks
+    //API call to add user
+    //if successful
+  }
+  async addUserToDb() {
+    const {fName, lName, email, password} = this.state;
+    const newUser = {
+      fName,
+      lName,
+      email: email.toLowerCase().trim(),
+      password,
+      type: 'user',
+    };
+    const res = await this.props.addUserAction(newUser);
+    if (res) {
       this.setState({
-        modalVisible: false,
         fName: '',
         lName: '',
         email: '',
         password: '',
         confirmPassword: '',
+        modalVisible: false,
       });
+      alert(`User added successfully with email: ${email}`);
     }
-    this.setState({
-      modalVisible: false,
-    });
-    //input checks
-    //API call to add user
-    //if successful
+    this.setState({modalVisible: false});
   }
 }
 
@@ -185,7 +195,7 @@ mapStateToProps = (state) => {
 
 mapDispatchToProps = (dispatch) => {
   return {
-    addUser: (newUser, allUsers) => dispatch(TASKS.addUser(newUser, allUsers)),
+    addUserAction: (newUser) => dispatch(TASKS.addUser(newUser)),
   };
 };
 

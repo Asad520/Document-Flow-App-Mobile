@@ -4,10 +4,15 @@ const initialState = {
 };
 const reducer = (state = initialState, actions) => {
   switch (actions.type) {
+    case TYPES.LOGIN:
+      return {
+        ...state,
+        user: actions.payload,
+      };
     case TYPES.LOGOUT:
       return {
         ...state,
-        user: actions.user,
+        user: actions.payload,
       };
 
     default:

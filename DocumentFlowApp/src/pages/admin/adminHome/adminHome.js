@@ -14,6 +14,7 @@ import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import Footer from '../../../components/adminFooter';
 import BigButton from '../../../components/bigButton';
+import * as actions from '../../../store/actions';
 
 class AdminHome extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -27,7 +28,6 @@ class AdminHome extends Component {
     };
   }
   render() {
-
     const {modalVisible} = this.state;
     return (
       <View style={{flex: 1}}>
@@ -53,9 +53,7 @@ class AdminHome extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={styles.headerText}>
-              You're logged in as Admin
-            </Text>
+            <Text style={styles.headerText}>You're logged in as Admin</Text>
           </View>
         </ImageBackground>
         <Modal animationType="slide" visible={modalVisible} transparent>
@@ -145,14 +143,18 @@ class AdminHome extends Component {
     );
   }
   logout() {
-    //empty store
     this.setState({modalVisible: false});
+    this.props.logoutAction();
     util.navigate('welcome');
   }
 }
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutAction: () => dispatch(actions.logoutAction()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHome);

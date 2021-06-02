@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignSelf: 'center',
     padding: util.WP(5),
-    top: util.WP(30),
+    top: util.WP(40),
     borderTopLeftRadius: util.WP(7),
     borderTopRightRadius: util.WP(7),
     borderColor: 'grey',

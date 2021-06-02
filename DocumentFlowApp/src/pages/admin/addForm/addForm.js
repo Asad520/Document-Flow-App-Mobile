@@ -134,22 +134,18 @@ export class AddForm extends Component {
       this.setState({modalVisible: true});
     }
   }
-  addForm() {
+  async addForm() {
     const {formType, formName, formId} = this.state;
-    const {addForm, allForms} = this.props;
-    const newForm = {formType, formName, formId: formId.toLowerCase()};
+    const {addFormAction} = this.props;
+    const newForm = {
+      formType,
+      FormName: formName,
+      formId: formId.toLowerCase(),
+    };
 
-    const response = addForm(newForm, allForms);
-    if (response === 'old') {
-      Alert.alert(
-        `Failed`,
-        `Form with ID: ${formId} already exists!`,
-        [{text: 'OK'}],
-        {
-          cancelable: false,
-        },
-      );
-    } else {
+    const response = await addFormAction(newForm);
+    console.log('formmm', response);
+    if (response === 'new') {
       Alert.alert(
         `Successful`,
         `Form with ID: ${formName} has been added!`,
@@ -162,6 +158,8 @@ export class AddForm extends Component {
         formType: '',
         formName: '',
       });
+    } else {
+      this.setState({modalVisible: false});
     }
 
     //API call to add user
@@ -176,7 +174,7 @@ mapStateToProps = (state) => {
 
 mapDispatchToProps = (dispatch) => {
   return {
-    addForm: (newUser, allUsers) => dispatch(TASKS.addForm(newUser, allUsers)),
+    addFormAction: (newForm) => dispatch(TASKS.addForm(newForm)),
   };
 };
 
