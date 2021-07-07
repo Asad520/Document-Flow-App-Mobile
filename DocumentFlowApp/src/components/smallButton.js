@@ -11,7 +11,7 @@ class SmallButton extends Component {
           flexDirection: 'row',
           alignSelf: 'center',
           backgroundColor: color,
-          width: util.WP(100),
+          width: '100%',
           height: util.WP(20),
           justifyContent: 'center',
           alignItems: 'center',

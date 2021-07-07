@@ -31,7 +31,7 @@ class Header extends Component {
             flexDirection: 'row',
             justifyContent: 'space-evenly',
             alignItems: 'center',
-            top: util.WP(-2.5),
+            top: util.WP(-8.5),
           }}>
           <Image
             source={require('../assets/adminIcon.png')}
@@ -47,7 +47,7 @@ class Header extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={{alignSelf: 'center', color: 'white'}}>
+            <Text style={{alignSelf: 'center', color: 'white', fontSize:util.WP(3)}}>
               You're logged in as Admin
             </Text>
           </View>

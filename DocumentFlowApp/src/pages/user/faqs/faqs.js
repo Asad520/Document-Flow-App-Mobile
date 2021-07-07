@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Header from '../../../components/userHeader';
 import styles from '../../../styles/index';
 import * as util from '../../../utilities';
+import * as TASKS from '../../../store/actions';
 import {sortBy} from 'lodash';
 
 export class Faqs extends Component {
@@ -21,7 +22,7 @@ export class Faqs extends Component {
   }
 
   componentDidMount() {
-    //get faqs from api
+    this.props.getAllFaqs();
   }
 
   render() {
@@ -35,7 +36,7 @@ export class Faqs extends Component {
         </Text>
         <FlatList
           data={sortBy(faqs, 'que')}
-          keyExtractor={(faq) => faq.id}
+          keyExtractor={(faq) => faq.id.toString()}
           renderItem={(faq) => this.renderFaqs(faq)}
           fadingEdgeLength={50}
           ListEmptyComponent={() => (
@@ -84,6 +85,10 @@ const mapStateToProps = (state) => ({
   faqs: state.faqs.faqs,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllFaqs: () => dispatch(TASKS.getAllFaqs()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Faqs);

@@ -14,6 +14,7 @@ import styles from '../../../styles';
 import Icon from 'react-native-vector-icons/Entypo';
 import Footer from '../../../components/userFooter';
 import BigButton from '../../../components/bigButton';
+import * as actions from '../../../store/actions';
 
 class UserHome extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -27,7 +28,6 @@ class UserHome extends Component {
     };
   }
   render() {
-    const {navigation} = this.props;
     const {modalVisible} = this.state;
     return (
       <View style={{flex: 1}}>
@@ -40,7 +40,7 @@ class UserHome extends Component {
             alignItems: 'center',
           }}>
           <Image
-            source={require('../../../assets/adminIcon.png')}
+            source={require('../../../assets/userIcon.png')}
             style={{height: util.WP(25)}}
             resizeMode="contain"
           />
@@ -53,9 +53,7 @@ class UserHome extends Component {
               }}>
               Welcome!
             </Text>
-            <Text style={{alignSelf: 'center', color: 'white'}}>
-              You're logged in as Student
-            </Text>
+            <Text style={styles.headerText}>You're logged in as Student</Text>
           </View>
         </ImageBackground>
         <Modal animationType="slide" visible={modalVisible} transparent>
@@ -84,37 +82,37 @@ class UserHome extends Component {
           <ScrollView fadingEdgeLength={50}>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
-              onPress={() => util.navigate('addUser')}>
+              onPress={() => util.navigate('requests')}>
               <BigButton
                 text="Submit Request"
-                color="#A6555A"
+                color={util.USER_BASE_COLOR}
                 imgAddress={require('../../../assets/submitRequestIcon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
-              onPress={() => util.navigate('deleteUser')}>
+              onPress={() => util.navigate('newForm')}>
               <BigButton
                 text="Request New Form"
-                color="#A6555A"
+                color={util.USER_BASE_COLOR}
                 imgAddress={require('../../../assets/addForm.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
-              onPress={() => util.navigate('addForm')}>
+              onPress={() => util.navigate('customizeForm')}>
               <BigButton
                 text="Customize Form"
-                color="#A6555A"
+                color={util.USER_BASE_COLOR}
                 imgAddress={require('../../../assets/customizeFormIcon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               style={{alignSelf: 'center'}}
-              onPress={() => util.navigate('deleteForm')}>
+              onPress={() => util.navigate('checkStatus')}>
               <BigButton
                 text="Check Status"
-                color="#A6555A"
+                color={util.USER_BASE_COLOR}
                 imgAddress={require('../../../assets/checkStatusIcon.png')}
               />
             </TouchableOpacity>
@@ -123,7 +121,7 @@ class UserHome extends Component {
               onPress={() => util.navigate('faqs')}>
               <BigButton
                 text="FAQ Chatbot"
-                color="#A6555A"
+                color={util.USER_BASE_COLOR}
                 imgAddress={require('../../../assets/chatbotIcon.png')}
               />
             </TouchableOpacity>
@@ -134,7 +132,7 @@ class UserHome extends Component {
               }}>
               <BigButton
                 text="Logout"
-                color="#A6555A"
+                color={util.USER_BASE_COLOR}
                 imgAddress={require('../../../assets/logout.png')}
               />
             </TouchableOpacity>
@@ -147,12 +145,17 @@ class UserHome extends Component {
   logout() {
     //empty store
     this.setState({modalVisible: false});
+    this.props.logoutAction();
     util.navigate('welcome');
   }
 }
 
 const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutAction: () => dispatch(actions.logoutAction()),
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserHome);

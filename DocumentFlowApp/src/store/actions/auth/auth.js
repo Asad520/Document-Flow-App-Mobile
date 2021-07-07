@@ -5,29 +5,47 @@ import * as TYPES from '../../types';
 const logout = () => {
   return {
     type: TYPES.LOGOUT,
-    user: null,
-  };
-};
-export const loginAction = (params) => {
-  return (dispatch) => {
-    dispatch(TASKS.showLoader());
-    axios
-      .post(`phone_verification.json`, {
-        phone: params.phone,
-      })
-      .then(function (response) {
-        dispatch(TASKS.hideLoader());
-        util.navigate('OTP', {
-          phoneData: {phone: params.phone, message: response.data.message},
-        });
-      })
-      .catch(function (error) {
-        util.showToast('Number not registered.');
-        dispatch(TASKS.hideLoader());
-      });
+    payload: null,
   };
 };
 
+export const login = (curUser) => {
+  return async (dispatch) => {
+    let response;
+    try {
+      response = await axios.get('clients');
+      const user = checkUser(response.data, curUser);
+      if (user) {
+        dispatch({
+          type: TYPES.LOGIN,
+          payload: user,
+        });
+        if (user.type === 'user') {
+          util.navigate('userHome');
+        } else {
+          util.navigate('adminHome');
+        }
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+};
+
+const checkUser = (allUsers, curUser) => {
+  const user = allUsers.find((user) => user.email === curUser.email);
+  if (user) {
+    if (user.password === curUser.password) {
+      return user;
+    } else {
+      alert('Invalid password!');
+      return false;
+    }
+  } else {
+    alert('User does not exist!');
+    return false;
+  }
+};
 export const logoutAction = () => {
   return (dispatch) => {
     dispatch(logout());

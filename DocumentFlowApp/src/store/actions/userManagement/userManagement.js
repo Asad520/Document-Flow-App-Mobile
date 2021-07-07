@@ -1,44 +1,55 @@
+import axios from 'axios';
 import * as TYPES from '../../types';
 
-export const addUser = (newUser, allUsers) => {
-  return (dispatch) => {
-    const found = checkUser(newUser, allUsers);
-    if (found) {
-      console.log('User already exists');
-      return 'old';
-    } else {
-      console.log('User added');
-      dispatch(addUserSuccess(newUser));
-      return 'new';
+export const addUser = (newUser) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.post('clients', newUser);
+      dispatch({
+        type: TYPES.ADD_USER,
+        payload: res.data,
+      });
+      return res.data;
+    } catch (error) {
+      if (error.message === 'Request failed with status code 500') {
+        alert(`User already exists with Email: ${newUser.email}`);
+      } else {
+        alert(error.message);
+      }
     }
   };
 };
 
-const checkUser = (newUser, allUsers) => {
-  const found = allUsers.find((user) => user.email === newUser.email);
-  if (found) {
-    return true;
-  } else return false;
-};
-
-const addUserSuccess = (newUser) => {
-  return {
-    type: TYPES.ADD_USER,
-    payload: newUser,
+export const deleteUser = (user, allUsers) => {
+  return async (dispatch) => {
+    try {
+      await axios.delete('clients/' + user.id);
+      dispatch(filterUsers(user, allUsers));
+      return true;
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
   };
 };
 
-export const deleteUser = (email, allUsers) => {
-  return (dispatch) => {
-    dispatch(filterUsers(email, allUsers));
-    return true;
-  };
-};
-
-const filterUsers = (email, allUsers) => {
-  const newUsers = allUsers.filter((user) => user.email !== email);
+const filterUsers = (delUser, allUsers) => {
+  const newUsers = allUsers.filter((user) => user.id !== delUser.id);
   return {
     type: TYPES.DELETE_USER,
     payload: newUsers,
+  };
+};
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get('clients');
+      dispatch({
+        type: TYPES.GET_ALL_USERS,
+        payload: res.data,
+      });
+    } catch (error) {
+      alert('Error: ', error.message);
+    }
   };
 };

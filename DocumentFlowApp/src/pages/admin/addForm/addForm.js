@@ -67,9 +67,7 @@ export class AddForm extends Component {
               <TextInput
                 style={styles.addUserInput}
                 placeholder="Assign a unique form ID..."
-                onChangeText={(formId) =>
-                  this.setState({formId: formId.toLowerCase()})
-                }
+                onChangeText={(formId) => this.setState({formId})}
                 value={formId}
               />
 
@@ -136,24 +134,17 @@ export class AddForm extends Component {
       this.setState({modalVisible: true});
     }
   }
-  addForm() {
-    console.log('test1');
+  async addForm() {
     const {formType, formName, formId} = this.state;
-    const {addForm, allForms} = this.props;
+    const {addFormAction} = this.props;
+    const newForm = {
+      formType,
+      FormName: formName,
+      formId: formId.toLowerCase(),
+    };
 
-    const newForm = {formType, formName, formId};
-
-    const response = addForm(newForm, allForms);
-    if (response === 'old') {
-      Alert.alert(
-        `Failed`,
-        `Form with ID: ${formId} already exists!`,
-        [{text: 'OK'}],
-        {
-          cancelable: false,
-        },
-      );
-    } else {
+    const response = await addFormAction(newForm);
+    if (response === 'new') {
       Alert.alert(
         `Successful`,
         `Form with ID: ${formName} has been added!`,
@@ -166,6 +157,8 @@ export class AddForm extends Component {
         formType: '',
         formName: '',
       });
+    } else {
+      this.setState({modalVisible: false});
     }
 
     //API call to add user
@@ -180,7 +173,7 @@ mapStateToProps = (state) => {
 
 mapDispatchToProps = (dispatch) => {
   return {
-    addForm: (newUser, allUsers) => dispatch(TASKS.addForm(newUser, allUsers)),
+    addFormAction: (newForm) => dispatch(TASKS.addForm(newForm)),
   };
 };
 

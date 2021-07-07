@@ -55,36 +55,36 @@ class AdminLogin extends React.Component {
             </ImageBackground>
 
             <View style={styles.innerContainer}>
-              <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>
+              <Text style={styles.credsText}>
                 Please provide the required credentials!
               </Text>
               <View style={styles.iconContainer}>
+                <TextInput
+                  style={styles.loginInput}
+                  placeholder="Enter Email..."
+                  onChangeText={(email) => this.setState({email: email})}
+                  value={this.state.email}
+                />
                 <Image
                   source={require('../../../assets/userNameIcon.png')}
                   style={styles.inputIcon}
                 />
               </View>
-
-              <TextInput
-                style={styles.loginInput}
-                placeholder="Enter Email..."
-                onChangeText={(email) => this.setState({email: email})}
-                value={this.state.email}
-              />
               <View style={styles.iconContainer}>
+                <TextInput
+                  style={styles.loginInput}
+                  placeholder="Enter Password..."
+                  secureTextEntry={true}
+                  onChangeText={(password) =>
+                    this.setState({password: password})
+                  }
+                  value={this.state.password}
+                />
                 <Image
                   source={require('../../../assets/pwdIcon.png')}
                   style={styles.inputIcon}
                 />
               </View>
-
-              <TextInput
-                style={styles.loginInput}
-                placeholder="Enter Password..."
-                secureTextEntry={true}
-                onChangeText={(password) => this.setState({password: password})}
-                value={this.state.password}
-              />
             </View>
 
             <TouchableOpacity
@@ -92,9 +92,7 @@ class AdminLogin extends React.Component {
               onPress={() => {
                 this.login();
               }}>
-              <Text style={{alignSelf: 'center', color: 'white'}}>
-                Get Started
-              </Text>
+              <Text style={styles.loginBtnText}>Get Started</Text>
             </TouchableOpacity>
             <Footer />
           </View>

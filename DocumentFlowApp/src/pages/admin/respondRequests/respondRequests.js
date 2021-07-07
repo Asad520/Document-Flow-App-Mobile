@@ -16,13 +16,26 @@ export class RespondRequests extends Component {
 
   constructor(props) {
     super(props);
-    //max length of rquest 473 chars
-
     this.state = {
       modalVisible: false,
-
       currentReq: false,
+      allRequests: this.props.allRequests,
     };
+  }
+
+  componentDidMount() {
+    this.props.getAllRequests();
+  }
+
+  async respondRequests(newStatus) {
+    const {allRequests, saveRequests, user} = this.props;
+    const {currentReq} = this.state;
+    const request = {...currentReq, status: newStatus, respondedBy: user.email};
+    const res = await saveRequests(request, allRequests);
+    if (res) {
+      alert('Request ' + newStatus + ' successfully!');
+    }
+    this.setState({currentReq: false});
   }
 
   render() {
@@ -44,7 +57,7 @@ export class RespondRequests extends Component {
           />
         </TouchableOpacity>
 
-        <Text style={styles.addUserTxt}>
+        <Text style={styles.delTxt}>
           Following requests are waiting for your response:
         </Text>
         <View style={styles.deleteContainer}>
@@ -54,12 +67,20 @@ export class RespondRequests extends Component {
           </View>
           <FlatList
             data={sortBy(allRequests, 'email')}
-            keyExtractor={(req) => req.id}
+            keyExtractor={(req) => req.id.toString()}
             renderItem={(req) => this.renderRequests(req)}
             fadingEdgeLength={50}
+            ListEmptyComponent={() => (
+              <View style={styles.emptyList}>
+                <Text style={styles.emptyListText}>
+                  {'No items to show...      '}
+                </Text>
+                <Icon name="warning" color="white" size={util.WP(6)} />
+              </View>
+            )}
           />
         </View>
-        {currentReq ? (
+        {currentReq && (
           <Modal animationType="slide" transparent>
             <View style={styles.modalContainer}>
               <View style={styles.requestContainer}>
@@ -81,66 +102,62 @@ export class RespondRequests extends Component {
                 <View style={styles.requestModalOptions}>
                   <TouchableOpacity
                     onPress={() => {
-                      this.rejectRequest();
+                      this.respondRequests('rejected');
                     }}
                     style={styles.requestReject}>
                     <Text style={styles.respondOptions}>Reject</Text>
-                    {/* <Icon name="cross" color="white" size={util.WP(8)} /> */}
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    onPress={() => this.acceptRequest()}
+                    onPress={() => this.respondRequests('accepted')}
                     style={styles.requestAccept}>
                     <Text style={styles.respondOptions}>Accept</Text>
-                    {/* <Icon name="check" color="white" size={util.WP(8)} /> */}
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
           </Modal>
-        ) : null}
+        )}
       </View>
     );
   }
 
   renderRequests({item}) {
     return (
-      <TouchableOpacity style={styles.itemContainer}>
-        <Text>{item.email}</Text>
-        <View style={styles.deleteItemName}>
-          <Text>{item.type}</Text>
-        </View>
-        <Icon
-          name="layers"
-          color="#4d4d4d"
-          size={util.WP(7)}
-          style={styles.deleteItemIcon}
-          onPress={() => this.setState({currentReq: item})}
-        />
-      </TouchableOpacity>
+      item.status === 'pending' && (
+        <TouchableOpacity
+          style={styles.itemContainer}
+          onPress={() => this.setState({currentReq: item})}>
+          <Text style={[styles.deleteItemTxt, {marginLeft: util.WP(3)}]}>
+            {item.email}
+          </Text>
+          <Text style={[styles.deleteItemTxt, {marginLeft: util.WP(3)}]}>
+            {item.type}
+          </Text>
+          <Icon
+            name="layers"
+            color="#4d4d4d"
+            size={util.WP(7)}
+            style={styles.deleteItemIcon}
+          />
+        </TouchableOpacity>
+      )
     );
-  }
-
-  acceptRequest() {
-    console.log('Request Accepted');
-    this.setState({currentReq: false});
-  }
-  rejectRequest() {
-    console.log('Request Rejected');
-    this.setState({currentReq: false});
   }
 }
 
 mapStateToProps = (state) => {
   return {
     allRequests: state.requests.requests,
+    user: state.auth.user,
   };
 };
 
 mapDispatchToProps = (dispatch) => {
   return {
-    deleteUser: (email, allUsers) =>
-      dispatch(TASKS.deleteUser(email, allUsers)),
+    saveRequests: (request, allRequests) =>
+      dispatch(TASKS.saveRequests(request, allRequests)),
+    getAllRequests: () => dispatch(TASKS.getAllRequests()),
   };
 };
 

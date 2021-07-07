@@ -55,29 +55,22 @@ class UserLogin extends React.Component {
             </ImageBackground>
 
             <View style={styles.innerContainer}>
-              <Text style={{alignSelf: 'center', fontWeight: 'bold'}}>
+              <Text style={styles.credsText}>
                 Please provide the required credentials!
               </Text>
               <View style={styles.iconContainer}>
-                <Image
-                  source={require('../../../assets/userNameIcon.png')}
-                  style={styles.inputIcon}
-                />
-              </View>
-
               <TextInput
                 style={styles.loginInput}
                 placeholder="Enter Email..."
                 onChangeText={(email) => this.setState({email: email})}
                 value={this.state.email}
               />
-              <View style={styles.iconContainer}>
-                <Image
-                  source={require('../../../assets/pwdIcon.png')}
+               <Image
+                  source={require('../../../assets/userNameIcon.png')}
                   style={styles.inputIcon}
                 />
               </View>
-
+              <View style={styles.iconContainer}>
               <TextInput
                 style={styles.loginInput}
                 placeholder="Enter Password..."
@@ -85,14 +78,19 @@ class UserLogin extends React.Component {
                 onChangeText={(password) => this.setState({password: password})}
                 value={this.state.password}
               />
+               <Image
+                  source={require('../../../assets/pwdIcon.png')}
+                  style={styles.inputIcon}
+                />
+              </View>
             </View>
 
             <TouchableOpacity
-              style={[styles.loginBtn, {backgroundColor: '#7E4256'}]}
+              style={[styles.loginBtn, {backgroundColor: util.USER_BASE_COLOR}]}
               onPress={() => {
                 this.login();
               }}>
-              <Text style={{alignSelf: 'center', color: 'white'}}>
+              <Text style={styles.loginBtnText}>
                 Get Started
               </Text>
             </TouchableOpacity>

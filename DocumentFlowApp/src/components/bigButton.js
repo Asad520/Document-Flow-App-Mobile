@@ -11,7 +11,7 @@ class BigButton extends Component {
           alignSelf: 'center',
           backgroundColor: color,
           width: util.WP(80),
-          height: util.WP(30),
+          height: util.WP(35),
           justifyContent: 'center',
           alignItems: 'center',
           marginVertical: util.WP(2),
@@ -22,7 +22,16 @@ class BigButton extends Component {
           style={{height: util.WP(22)}}
           resizeMode="contain"
         />
-        <Text style={{color: 'white'}}> {text} </Text>
+        <Text
+          style={{
+            color: 'white',
+            fontSize: util.WP(3),
+            marginTop: util.WP(2),
+            fontWeight: 'bold',
+          }}>
+          {' '}
+          {text}{' '}
+        </Text>
       </View>
     );
   }

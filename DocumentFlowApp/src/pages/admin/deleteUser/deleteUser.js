@@ -6,7 +6,6 @@ import {
   Modal,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert,
   Image,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -29,13 +28,18 @@ export class DeleteUser extends Component {
     this.state = {
       modalVisible: false,
       allUsers: this.props.allUsers,
-      email: '',
+      user: {},
     };
   }
 
+  componentDidMount() {
+    this.props.getAllUsers();
+  }
   render() {
-    const {allUsers} = this.props;
-    const {modalVisible, email} = this.state;
+    const allUsers = this.props.allUsers.filter(
+      (user) => user.email !== this.props.user.email,
+    );
+    const {modalVisible, user} = this.state;
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={{flex: 1}}>
@@ -53,9 +57,7 @@ export class DeleteUser extends Component {
             />
           </TouchableOpacity>
 
-          <Text style={styles.addUserTxt}>
-            Which user do you want to delete?
-          </Text>
+          <Text style={styles.delTxt}>Which user do you want to delete?</Text>
           <View style={styles.deleteContainer}>
             <View style={styles.deleteHeader}>
               <Text style={styles.deleteEmailHead}>Email:</Text>
@@ -90,7 +92,7 @@ export class DeleteUser extends Component {
                   </TouchableOpacity>
 
                   <TouchableOpacity
-                    onPress={() => this.deleteUser(email)}
+                    onPress={() => this.deleteUser(user)}
                     style={styles.modalAccept}>
                     <Icon name="check" color="white" size={util.WP(8)} />
                   </TouchableOpacity>
@@ -105,57 +107,42 @@ export class DeleteUser extends Component {
 
   renderUsers({item}) {
     return (
-      <TouchableOpacity style={styles.itemContainer}>
-        <Text>{item.email}</Text>
-        <View style={styles.deleteItemName}>
-          <Text>
-            {item.fName} {item.lName}
-          </Text>
-        </View>
-        <Icon
-          name="remove-user"
-          color="#4d4d4d"
-          size={util.WP(7)}
-          style={styles.deleteItemIcon}
-          onPress={() => this.setState({modalVisible: true, email: item.email})}
-        />
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => this.setState({modalVisible: true, user: item})}>
+        <Text style={styles.deleteItemTxt}>{item.email}</Text>
+        <Text style={styles.deleteItemTxt}>
+          {item.fName} {item.lName}
+        </Text>
+        <Icon name="remove-user" color="#4d4d4d" size={util.WP(7)} />
       </TouchableOpacity>
     );
   }
-  deleteUser(email) {
-    const {allUsers, deleteUser} = this.props;
-    const response = deleteUser(email, allUsers);
-    if (response) {
-      Alert.alert(
-        `Success`,
-        `User ${email} has been deleted!`,
-        [{text: 'OK'}],
-        {
-          cancelable: false,
-        },
-      );
-    } else {
-      Alert.alert(`Failed`, `Error deleting user: ${email}`, [{text: 'OK'}], {
-        cancelable: false,
-      });
+
+  async deleteUser(user) {
+    const {deleteUserAction, getAllUsers} = this.props;
+    const {allUsers} = this.state;
+    const res = await deleteUserAction(user, allUsers);
+    this.setState({modalVisible: false, allUsers: this.props.allUsers});
+    if (res) {
+      alert(`User deleted successfully: ${user.email}`);
+      getAllUsers();
     }
-    this.setState({modalVisible: false});
-    //input checks
-    //API call to add user
-    //if successful
   }
 }
 
 mapStateToProps = (state) => {
   return {
     allUsers: state.userManagement.users,
+    user: state.auth.user,
   };
 };
 
 mapDispatchToProps = (dispatch) => {
   return {
-    deleteUser: (email, allUsers) =>
+    deleteUserAction: (email, allUsers) =>
       dispatch(TASKS.deleteUser(email, allUsers)),
+    getAllUsers: () => dispatch(TASKS.getAllUsers()),
   };
 };
 
